@@ -6,7 +6,8 @@ namespace EZCom.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            // Додай тут реєстрацію сервісів для рівня Application
+
+
             return services;
         }
     }

@@ -22,7 +22,6 @@
     <Folder Include="Common\Validators\" />
     <Folder Include="Features\" />
     <Folder Include="Interfaces\Services\" />
-    <Folder Include="Interfaces\Repositories\" />
   </ItemGroup>
 
 </Project>

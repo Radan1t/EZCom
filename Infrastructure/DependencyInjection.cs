@@ -1,8 +1,8 @@
 ﻿using Infrastructure.Persistence.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Infrastructure.Persistence.Data;
+using EZCom.Application.Interfaces;
+using Infrastructure.Persistence.Repositories;
 
 
 namespace EZCom.Infrastructure
@@ -13,6 +13,8 @@ namespace EZCom.Infrastructure
         {
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer("YourConnectionString"));
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }
