@@ -7,6 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="9.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.2">
       <PrivateAssets>all</PrivateAssets>
@@ -21,11 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Common\DTO\" />
     <Folder Include="Common\Exceptions\" />
-    <Folder Include="Common\Validators\" />
     <Folder Include="Features\" />
-    <Folder Include="Interfaces\Services\" />
   </ItemGroup>
 
 </Project>

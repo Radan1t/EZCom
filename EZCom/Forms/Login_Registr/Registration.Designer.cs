@@ -34,26 +34,26 @@
             label5 = new Label();
             label4 = new Label();
             label3 = new Label();
-            textBox3 = new TextBox();
-            textBox2 = new TextBox();
-            textBox1 = new TextBox();
+            Password2 = new TextBox();
+            Password = new TextBox();
+            Login = new TextBox();
             label2 = new Label();
             label1 = new Label();
             groupBox3 = new GroupBox();
             groupBox4 = new GroupBox();
-            dateTimePicker1 = new DateTimePicker();
+            DateOfBirth = new DateTimePicker();
             label6 = new Label();
             label7 = new Label();
             label8 = new Label();
-            textBox5 = new TextBox();
-            textBox6 = new TextBox();
+            LastName = new TextBox();
+            FirstName = new TextBox();
             label9 = new Label();
             groupBox5 = new GroupBox();
             groupBox6 = new GroupBox();
             label10 = new Label();
             label12 = new Label();
-            textBox4 = new TextBox();
-            textBox7 = new TextBox();
+            Phone = new TextBox();
+            Email = new TextBox();
             label13 = new Label();
             groupBox7 = new GroupBox();
             button1 = new Button();
@@ -84,9 +84,9 @@
             groupBox2.Controls.Add(label5);
             groupBox2.Controls.Add(label4);
             groupBox2.Controls.Add(label3);
-            groupBox2.Controls.Add(textBox3);
-            groupBox2.Controls.Add(textBox2);
-            groupBox2.Controls.Add(textBox1);
+            groupBox2.Controls.Add(Password2);
+            groupBox2.Controls.Add(Password);
+            groupBox2.Controls.Add(Login);
             groupBox2.Controls.Add(label2);
             groupBox2.Location = new Point(15, 38);
             groupBox2.Name = "groupBox2";
@@ -140,32 +140,34 @@
             label3.TabIndex = 4;
             label3.Text = "Password";
             // 
-            // textBox3
+            // Password2
             // 
-            textBox3.BackColor = Color.FromArgb(217, 217, 217);
-            textBox3.BorderStyle = BorderStyle.FixedSingle;
-            textBox3.Location = new Point(170, 101);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(142, 23);
-            textBox3.TabIndex = 3;
+            Password2.BackColor = Color.FromArgb(217, 217, 217);
+            Password2.BorderStyle = BorderStyle.FixedSingle;
+            Password2.Location = new Point(170, 101);
+            Password2.Name = "Password2";
+            Password2.PasswordChar = '*';
+            Password2.Size = new Size(142, 23);
+            Password2.TabIndex = 3;
             // 
-            // textBox2
+            // Password
             // 
-            textBox2.BackColor = Color.FromArgb(217, 217, 217);
-            textBox2.BorderStyle = BorderStyle.FixedSingle;
-            textBox2.Location = new Point(170, 50);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(142, 23);
-            textBox2.TabIndex = 2;
+            Password.BackColor = Color.FromArgb(217, 217, 217);
+            Password.BorderStyle = BorderStyle.FixedSingle;
+            Password.Location = new Point(170, 50);
+            Password.Name = "Password";
+            Password.PasswordChar = '*';
+            Password.Size = new Size(142, 23);
+            Password.TabIndex = 2;
             // 
-            // textBox1
+            // Login
             // 
-            textBox1.BackColor = Color.FromArgb(217, 217, 217);
-            textBox1.BorderStyle = BorderStyle.FixedSingle;
-            textBox1.Location = new Point(6, 50);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(145, 23);
-            textBox1.TabIndex = 1;
+            Login.BackColor = Color.FromArgb(217, 217, 217);
+            Login.BorderStyle = BorderStyle.FixedSingle;
+            Login.Location = new Point(6, 50);
+            Login.Name = "Login";
+            Login.Size = new Size(145, 23);
+            Login.TabIndex = 1;
             // 
             // label2
             // 
@@ -202,12 +204,12 @@
             // groupBox4
             // 
             groupBox4.BackColor = Color.FromArgb(183, 167, 174);
-            groupBox4.Controls.Add(dateTimePicker1);
+            groupBox4.Controls.Add(DateOfBirth);
             groupBox4.Controls.Add(label6);
             groupBox4.Controls.Add(label7);
             groupBox4.Controls.Add(label8);
-            groupBox4.Controls.Add(textBox5);
-            groupBox4.Controls.Add(textBox6);
+            groupBox4.Controls.Add(LastName);
+            groupBox4.Controls.Add(FirstName);
             groupBox4.Controls.Add(label9);
             groupBox4.Location = new Point(15, 16);
             groupBox4.Name = "groupBox4";
@@ -215,13 +217,13 @@
             groupBox4.TabIndex = 1;
             groupBox4.TabStop = false;
             // 
-            // dateTimePicker1
+            // DateOfBirth
             // 
-            dateTimePicker1.CalendarMonthBackground = Color.FromArgb(217, 217, 217);
-            dateTimePicker1.Location = new Point(67, 101);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(200, 23);
-            dateTimePicker1.TabIndex = 3;
+            DateOfBirth.CalendarMonthBackground = Color.FromArgb(217, 217, 217);
+            DateOfBirth.Location = new Point(67, 101);
+            DateOfBirth.Name = "DateOfBirth";
+            DateOfBirth.Size = new Size(200, 23);
+            DateOfBirth.TabIndex = 3;
             // 
             // label6
             // 
@@ -256,23 +258,23 @@
             label8.TabIndex = 4;
             label8.Text = "Last Name";
             // 
-            // textBox5
+            // LastName
             // 
-            textBox5.BackColor = Color.FromArgb(217, 217, 217);
-            textBox5.BorderStyle = BorderStyle.FixedSingle;
-            textBox5.Location = new Point(170, 50);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(142, 23);
-            textBox5.TabIndex = 2;
+            LastName.BackColor = Color.FromArgb(217, 217, 217);
+            LastName.BorderStyle = BorderStyle.FixedSingle;
+            LastName.Location = new Point(170, 50);
+            LastName.Name = "LastName";
+            LastName.Size = new Size(142, 23);
+            LastName.TabIndex = 2;
             // 
-            // textBox6
+            // FirstName
             // 
-            textBox6.BackColor = Color.FromArgb(217, 217, 217);
-            textBox6.BorderStyle = BorderStyle.FixedSingle;
-            textBox6.Location = new Point(6, 50);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(145, 23);
-            textBox6.TabIndex = 1;
+            FirstName.BackColor = Color.FromArgb(217, 217, 217);
+            FirstName.BorderStyle = BorderStyle.FixedSingle;
+            FirstName.Location = new Point(6, 50);
+            FirstName.Name = "FirstName";
+            FirstName.Size = new Size(145, 23);
+            FirstName.TabIndex = 1;
             // 
             // label9
             // 
@@ -300,8 +302,8 @@
             groupBox6.BackColor = Color.FromArgb(183, 167, 174);
             groupBox6.Controls.Add(label10);
             groupBox6.Controls.Add(label12);
-            groupBox6.Controls.Add(textBox4);
-            groupBox6.Controls.Add(textBox7);
+            groupBox6.Controls.Add(Phone);
+            groupBox6.Controls.Add(Email);
             groupBox6.Controls.Add(label13);
             groupBox6.Location = new Point(15, 16);
             groupBox6.Name = "groupBox6";
@@ -331,23 +333,23 @@
             label12.TabIndex = 4;
             label12.Text = "Phone number";
             // 
-            // textBox4
+            // Phone
             // 
-            textBox4.BackColor = Color.FromArgb(217, 217, 217);
-            textBox4.BorderStyle = BorderStyle.FixedSingle;
-            textBox4.Location = new Point(51, 97);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(215, 23);
-            textBox4.TabIndex = 2;
+            Phone.BackColor = Color.FromArgb(217, 217, 217);
+            Phone.BorderStyle = BorderStyle.FixedSingle;
+            Phone.Location = new Point(51, 97);
+            Phone.Name = "Phone";
+            Phone.Size = new Size(215, 23);
+            Phone.TabIndex = 2;
             // 
-            // textBox7
+            // Email
             // 
-            textBox7.BackColor = Color.FromArgb(217, 217, 217);
-            textBox7.BorderStyle = BorderStyle.FixedSingle;
-            textBox7.Location = new Point(51, 51);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(215, 23);
-            textBox7.TabIndex = 1;
+            Email.BackColor = Color.FromArgb(217, 217, 217);
+            Email.BorderStyle = BorderStyle.FixedSingle;
+            Email.Location = new Point(51, 51);
+            Email.Name = "Email";
+            Email.Size = new Size(215, 23);
+            Email.TabIndex = 1;
             // 
             // label13
             // 
@@ -384,6 +386,7 @@
             button1.TabIndex = 0;
             button1.Text = "Registration";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // Registration
             // 
@@ -421,9 +424,9 @@
         private Label label2;
         private Label label4;
         private Label label3;
-        private TextBox textBox3;
-        private TextBox textBox2;
-        private TextBox textBox1;
+        private TextBox Password2;
+        private TextBox Password;
+        private TextBox Login;
         private CheckBox checkBox1;
         private Label label5;
         private GroupBox groupBox3;
@@ -431,16 +434,16 @@
         private Label label6;
         private Label label7;
         private Label label8;
-        private TextBox textBox5;
-        private TextBox textBox6;
+        private TextBox LastName;
+        private TextBox FirstName;
         private Label label9;
-        private DateTimePicker dateTimePicker1;
+        private DateTimePicker DateOfBirth;
         private GroupBox groupBox5;
         private GroupBox groupBox6;
         private Label label10;
         private Label label12;
-        private TextBox textBox4;
-        private TextBox textBox7;
+        private TextBox Phone;
+        private TextBox Email;
         private Label label13;
         private GroupBox groupBox7;
         private Button button1;
