@@ -134,6 +134,7 @@
             button1.TabIndex = 0;
             button1.Text = "Log in";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // button2
             // 
@@ -146,6 +147,7 @@
             button2.TabIndex = 2;
             button2.Text = "Registration";
             button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
             // 
             // Login
             // 

@@ -33,5 +33,16 @@ namespace EZCom.Helper
             path.CloseFigure();
             pb.Region = new Region(path);
         }
+
+        public static void GroupBoxFix(GroupBox groupBox)
+        {
+            groupBox.Paint += (sender, e) =>
+            {
+                e.Graphics.Clear(groupBox.BackColor);
+                // Малюємо лише текст без малювання заголовка
+                TextRenderer.DrawText(e.Graphics, groupBox.Text, groupBox.Font, new Point(10, 1), groupBox.ForeColor);
+            };
+        }
+
     }
 }

@@ -22,6 +22,7 @@ namespace EZCom.Infrastructure
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IRegistrationService, RegistrationService>();
             services.AddScoped<ICodeSenderService, CodeSenderService>();
+            services.AddScoped<ILoginService, LoginService>();
 
             return services;
         }

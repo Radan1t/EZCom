@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Application.Interfaces.Services;
 using Infrastructure.Services;
+using EZCom.Helper;
 
 namespace EZCom.Forms
 {
@@ -27,6 +28,17 @@ namespace EZCom.Forms
             _registrationService = registrationService;
             _codeSenderService = codeSenderService;
             InitializeComponent();
+            DefaultUI.GroupBoxFix(groupBox1);
+            DefaultUI.GroupBoxFix(groupBox2);
+            DefaultUI.GroupBoxFix(groupBox3);
+            DefaultUI.GroupBoxFix(groupBox4);
+            DefaultUI.GroupBoxFix(groupBox5);
+            DefaultUI.GroupBoxFix(groupBox6);
+            DefaultUI.GroupBoxFix(groupBox7);
+            DefaultUI.SetRoundedPictureBox(groupBox2, 15);
+            DefaultUI.SetRoundedPictureBox(groupBox4, 15);
+            DefaultUI.SetRoundedPictureBox(groupBox6, 15);
+            DefaultUI.SetRoundedPictureBox(groupBox7, 10);
         }
 
         private void Registration_Load(object sender, EventArgs e)
