@@ -5,6 +5,9 @@ using EZCom.Application;
 using EZCom.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Infrastructure.Persistence.Data;
+using FluentValidation;
+using Application.Common.Validators;
+using EZCom.Forms;
 
 namespace EZCom.UI
 {
@@ -20,12 +23,12 @@ namespace EZCom.UI
             var services = new ServiceCollection();
             services.AddApplication();
             services.AddInfrastructure(configuration);
+            services.AddValidatorsFromAssemblyContaining<RegistrationValidator>();
 
-           
-            services.AddTransient<Form1>();
+            services.AddTransient<Registration>();
 
             using var provider = services.BuildServiceProvider();
-            var mainForm = provider.GetRequiredService<Form1>();
+            var mainForm = provider.GetRequiredService<Registration>();
 
             System.Windows.Forms.Application.Run(mainForm);
         }

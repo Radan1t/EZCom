@@ -5,6 +5,8 @@ using EZCom.Application.Interfaces;
 using Infrastructure.Persistence.Repositories;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration;
+using Application.Interfaces.Services;
+using Infrastructure.Services;
 
 
 namespace EZCom.Infrastructure
@@ -18,6 +20,8 @@ namespace EZCom.Infrastructure
             options.UseSqlServer(connectionString));
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IRegistrationService, RegistrationService>();
+            services.AddScoped<ICodeSenderService, CodeSenderService>();
 
             return services;
         }
