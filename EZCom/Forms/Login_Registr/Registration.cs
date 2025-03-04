@@ -30,7 +30,7 @@ namespace EZCom.Forms
             _idToken = idToken;
             _loginForm = login;
             InitializeComponent();
-            DecodeTokenAsync(idToken);  
+            DecodeTokenAsync(idToken);
             DefaultUI.GroupBoxFix(groupBox1);
             DefaultUI.GroupBoxFix(groupBox2);
             DefaultUI.GroupBoxFix(groupBox3);
@@ -38,10 +38,12 @@ namespace EZCom.Forms
             DefaultUI.GroupBoxFix(groupBox5);
             DefaultUI.GroupBoxFix(groupBox6);
             DefaultUI.GroupBoxFix(groupBox7);
+            DefaultUI.GroupBoxFix(groupBox8);
             DefaultUI.SetRoundedPictureBox(groupBox2, 15);
             DefaultUI.SetRoundedPictureBox(groupBox4, 15);
             DefaultUI.SetRoundedPictureBox(groupBox6, 15);
             DefaultUI.SetRoundedPictureBox(groupBox7, 10);
+            DefaultUI.SetRoundedPictureBox(groupBox8, 10);
         }
 
         private void Registration_Load(object sender, EventArgs e)
@@ -125,6 +127,12 @@ namespace EZCom.Forms
             {
                 Console.WriteLine("Token validation failed: " + ex.Message);
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            _loginForm.Show();
+            this.Close();
         }
     }
 }

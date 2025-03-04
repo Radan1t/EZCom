@@ -152,7 +152,7 @@
             // 
             // btnGoogleLogin
             // 
-            btnGoogleLogin.Location = new Point(117, 439);
+            btnGoogleLogin.Location = new Point(115, 430);
             btnGoogleLogin.Name = "btnGoogleLogin";
             btnGoogleLogin.Size = new Size(161, 23);
             btnGoogleLogin.TabIndex = 3;
