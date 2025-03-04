@@ -13,8 +13,10 @@ namespace EZCom
         private readonly ILoginService _loginService;
         private readonly IRegistrationService _registrationService;
         private readonly ICodeSenderService _codeSenderService;
-        public Login(ILoginService loginService)
+        public Login(ILoginService loginService, IRegistrationService registrationService, ICodeSenderService codeSenderService)
         {
+            _registrationService = registrationService;
+            _codeSenderService = codeSenderService;
             InitializeComponent();
             _loginService = loginService;
             DefaultUI.SetRoundedPictureBox(groupBox1, 15); // Викликаємо функцію заокруглення
@@ -65,7 +67,7 @@ namespace EZCom
         private void button2_Click(object sender, EventArgs e)
         {
             // Pass the services to the Registration form
-            Registration registrationForm = new Registration(_registrationService, _codeSenderService);
+            Registration registrationForm = new Registration(_registrationService, _codeSenderService, this);
             registrationForm.Show();
             this.Hide();
         }

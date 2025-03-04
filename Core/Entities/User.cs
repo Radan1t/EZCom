@@ -21,7 +21,7 @@ namespace Core.Entities
         public int UserTypeID { get; set; }
         public UserType Type { get; set; }
 
-        public int CompanyID { get; set; }
+        public int? CompanyID { get; set; }
         public Company Company { get; set; }
 
         public ICollection<Message> Messages { get; set; }

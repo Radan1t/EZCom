@@ -21,10 +21,12 @@ namespace EZCom.Forms
 {
     public partial class Registration : Form
     {
+        private readonly Login _loginForm;
         private readonly IRegistrationService _registrationService;
         private readonly ICodeSenderService _codeSenderService;
-        public Registration(IRegistrationService registrationService, ICodeSenderService codeSenderService)
+        public Registration(IRegistrationService registrationService, ICodeSenderService codeSenderService, Login loginForm)
         {
+            _loginForm = loginForm;
             _registrationService = registrationService;
             _codeSenderService = codeSenderService;
             InitializeComponent();
@@ -39,6 +41,7 @@ namespace EZCom.Forms
             DefaultUI.SetRoundedPictureBox(groupBox4, 15);
             DefaultUI.SetRoundedPictureBox(groupBox6, 15);
             DefaultUI.SetRoundedPictureBox(groupBox7, 10);
+            _loginForm = loginForm;
         }
 
         private void Registration_Load(object sender, EventArgs e)
@@ -96,7 +99,7 @@ namespace EZCom.Forms
 
                     if (success)
                     {
-                        var registrationCodeForm = new RegistrationCode(user, verificationCode, this, _codeSenderService, _registrationService);
+                        var registrationCodeForm = new RegistrationCode(user, verificationCode, this, _codeSenderService, _registrationService, _loginForm);
                         registrationCodeForm.Show();
                         this.Hide(); 
                     }

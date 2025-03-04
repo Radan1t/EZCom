@@ -24,8 +24,9 @@ namespace EZCom.UI
             services.AddApplication();
             services.AddInfrastructure(configuration);
             services.AddValidatorsFromAssemblyContaining<RegistrationValidator>();
-
             services.AddTransient<Login>();
+            services.AddTransient<Registration>(); 
+            services.AddTransient<RegistrationCode>(); 
 
             using var provider = services.BuildServiceProvider();
             var mainForm = provider.GetRequiredService<Login>();
