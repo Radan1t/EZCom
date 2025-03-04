@@ -37,6 +37,7 @@
             textBox1 = new TextBox();
             button1 = new Button();
             button2 = new Button();
+            btnGoogleLogin = new Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -128,7 +129,7 @@
             button1.BackColor = Color.FromArgb(183, 167, 174);
             button1.FlatStyle = FlatStyle.Popup;
             button1.Font = new Font("Yu Gothic", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            button1.Location = new Point(143, 351);
+            button1.Location = new Point(143, 331);
             button1.Name = "button1";
             button1.Size = new Size(114, 32);
             button1.TabIndex = 0;
@@ -141,7 +142,7 @@
             button2.BackColor = Color.FromArgb(183, 167, 174);
             button2.FlatStyle = FlatStyle.Popup;
             button2.Font = new Font("Yu Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            button2.Location = new Point(143, 415);
+            button2.Location = new Point(143, 383);
             button2.Name = "button2";
             button2.Size = new Size(114, 32);
             button2.TabIndex = 2;
@@ -149,11 +150,22 @@
             button2.UseVisualStyleBackColor = false;
             button2.Click += button2_Click;
             // 
+            // btnGoogleLogin
+            // 
+            btnGoogleLogin.Location = new Point(117, 439);
+            btnGoogleLogin.Name = "btnGoogleLogin";
+            btnGoogleLogin.Size = new Size(161, 23);
+            btnGoogleLogin.TabIndex = 3;
+            btnGoogleLogin.Text = "Log in by Google";
+            btnGoogleLogin.UseVisualStyleBackColor = true;
+            btnGoogleLogin.Click += btnGoogleLogin_Click;
+            // 
             // Login
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(88, 84, 91);
             ClientSize = new Size(402, 485);
+            Controls.Add(btnGoogleLogin);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(groupBox1);
@@ -179,5 +191,6 @@
         private TextBox textBox2;
         private Label label2;
         private CheckBox checkBox1;
+        private Button btnGoogleLogin;
     }
 }

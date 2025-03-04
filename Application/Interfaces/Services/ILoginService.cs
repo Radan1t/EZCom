@@ -11,5 +11,6 @@ namespace Application.Interfaces.Services
     public interface ILoginService
     {
         Task<UserDTO> LoginAsync(string login, string password);
+        Task<UserDTO> CheckUserExistsAsync(string idToken);
     }
 }

@@ -7,6 +7,7 @@ using Application.Common.DTO;
 using Application.Interfaces.Services;
 using Core.Entities;
 using EZCom.Application.Interfaces;
+using Google.Apis.Auth;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Services
@@ -43,5 +44,32 @@ namespace Infrastructure.Services
                 DateOfBirth = user.Date_of_birthday
             };
         }
+        public async Task<UserDTO> CheckUserExistsAsync(string idToken)
+        {
+            // Логіка для отримання електронної пошти з токена
+            var payload = await GoogleJsonWebSignature.ValidateAsync(idToken);
+            var email = payload.Email;
+
+            // Знаходимо користувача за електронною поштою
+            var user = await _userRepository.GetFirstOrDefaultAsync(u => u.E_mail == email);
+
+            if (user == null)
+            {
+                return null; // Користувача не знайдено
+            }
+
+            // Повертаємо DTO користувача
+            return new UserDTO
+            {
+                Id = user.Id,
+                FirstName = user.First_name,
+                LastName = user.Last_name,
+                Login = user.Login,
+                Email = user.E_mail,
+                PhoneNumber = user.Phone_number,
+                DateOfBirth = user.Date_of_birthday
+            };
+        }
+
     }
 }
