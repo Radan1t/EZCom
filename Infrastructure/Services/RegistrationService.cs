@@ -11,6 +11,7 @@ using BCrypt.Net;
 using Application.Common.DTO;
 using Infrastructure.Persistence.Repositories;
 using System.ComponentModel.Design;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Services
 {
@@ -57,22 +58,27 @@ namespace Infrastructure.Services
                     Phone_number = userDto.PhoneNumber,
                     Password = BCrypt.Net.BCrypt.HashPassword(userDto.Password),
                     Date_of_birthday = userDto.DateOfBirth,
-                    UserTypeID = 1,
-                    CompanyID = 1
+                    UserTypeID = 1
                 };
 
-                var userRepo = _unitOfWork.Repository<User>(); // Отримуємо репозиторій через UnitOfWork
-                await userRepo.InsertAsync(newUser); // Додаємо користувача
-                await _unitOfWork.SaveAsync(); // Зберігаємо зміни в БД
+                var userRepo = _unitOfWork.Repository<User>();
+                await userRepo.InsertAsync(newUser);
+                await _unitOfWork.SaveAsync();
 
                 return true;
             }
+            catch (DbUpdateException dbEx)
+            {
+                Console.WriteLine($"[DB ERROR] {dbEx.InnerException?.Message ?? dbEx.Message}");
+                throw; // Дозволяє побачити стек викликів
+            }
             catch (Exception ex)
             {
-                Console.WriteLine($"[ERROR] Registration failed: {ex.Message}");
-                return false;
+                Console.WriteLine($"[ERROR] {ex}");
+                throw;
             }
         }
+
 
 
     }

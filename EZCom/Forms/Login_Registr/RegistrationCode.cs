@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using EZCom.Helper;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -20,16 +21,22 @@ namespace EZCom.Forms
         private readonly Registration _registrationForm;
         private readonly ICodeSenderService _codeSenderService;
         private DateTime _lastCodeSentTime;
+        private readonly Login _loginForm;
         private readonly IRegistrationService _registrationService;
         public RegistrationCode(UserDTO userData, string verificationCode, Registration registrationForm,
-                        ICodeSenderService codeSenderService, IRegistrationService registrationService)
+                        ICodeSenderService codeSenderService, IRegistrationService registrationService, Login login)
         {
+
             _userData = userData;
             _verificationCode = verificationCode;
             _registrationForm = registrationForm;
             _registrationService = registrationService;
             _codeSenderService = codeSenderService;
+            _loginForm=login;
             InitializeComponent();
+            DefaultUI.GroupBoxFix(groupBox1);
+            DefaultUI.GroupBoxFix(groupBox2);
+            DefaultUI.SetRoundedPictureBox(groupBox2, 15);
             label3.Text = $"Email: {_userData.Email}";
             _lastCodeSentTime = DateTime.MinValue; 
         }
@@ -54,6 +61,7 @@ namespace EZCom.Forms
                                         "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Close();
                         _registrationForm.Close();
+                        _loginForm.Show();
                     }
                     else
                     {

@@ -57,6 +57,8 @@
             label13 = new Label();
             groupBox7 = new GroupBox();
             button1 = new Button();
+            groupBox8 = new GroupBox();
+            button2 = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -64,6 +66,7 @@
             groupBox5.SuspendLayout();
             groupBox6.SuspendLayout();
             groupBox7.SuspendLayout();
+            groupBox8.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
@@ -366,9 +369,9 @@
             // 
             groupBox7.BackColor = Color.FromArgb(88, 84, 91);
             groupBox7.Controls.Add(button1);
-            groupBox7.Location = new Point(109, 586);
+            groupBox7.Location = new Point(230, 586);
             groupBox7.Name = "groupBox7";
-            groupBox7.Size = new Size(176, 46);
+            groupBox7.Size = new Size(147, 46);
             groupBox7.TabIndex = 4;
             groupBox7.TabStop = false;
             // 
@@ -380,7 +383,7 @@
             button1.FlatStyle = FlatStyle.Popup;
             button1.Font = new Font("Lucida Bright", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.FromArgb(27, 42, 55);
-            button1.Location = new Point(33, 9);
+            button1.Location = new Point(18, 9);
             button1.Name = "button1";
             button1.Size = new Size(114, 31);
             button1.TabIndex = 0;
@@ -388,10 +391,37 @@
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
+            // groupBox8
+            // 
+            groupBox8.BackColor = Color.FromArgb(88, 84, 91);
+            groupBox8.Controls.Add(button2);
+            groupBox8.Location = new Point(27, 586);
+            groupBox8.Name = "groupBox8";
+            groupBox8.Size = new Size(147, 46);
+            groupBox8.TabIndex = 5;
+            groupBox8.TabStop = false;
+            // 
+            // button2
+            // 
+            button2.BackColor = Color.FromArgb(183, 167, 174);
+            button2.FlatAppearance.BorderColor = Color.FromArgb(183, 167, 174);
+            button2.FlatAppearance.BorderSize = 0;
+            button2.FlatStyle = FlatStyle.Popup;
+            button2.Font = new Font("Lucida Bright", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button2.ForeColor = Color.FromArgb(27, 42, 55);
+            button2.Location = new Point(18, 9);
+            button2.Name = "button2";
+            button2.Size = new Size(114, 31);
+            button2.TabIndex = 0;
+            button2.Text = "Back";
+            button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
+            // 
             // Registration
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(402, 644);
+            Controls.Add(groupBox8);
             Controls.Add(groupBox7);
             Controls.Add(groupBox5);
             Controls.Add(groupBox3);
@@ -413,6 +443,7 @@
             groupBox6.ResumeLayout(false);
             groupBox6.PerformLayout();
             groupBox7.ResumeLayout(false);
+            groupBox8.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -447,5 +478,7 @@
         private Label label13;
         private GroupBox groupBox7;
         private Button button1;
+        private GroupBox groupBox8;
+        private Button button2;
     }
 }
