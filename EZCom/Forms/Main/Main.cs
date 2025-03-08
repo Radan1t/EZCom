@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.Interfaces.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,18 @@ namespace EZCom.Forms.Main
         public Main()
         {
             InitializeComponent();
+        }
+
+        private void buttonEditProfile_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Редагування профілю");
+        }
+
+        private void buttonCreateCompany_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Створення компанії");
+            
+           
         }
     }
 }
