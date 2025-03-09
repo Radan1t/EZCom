@@ -145,7 +145,7 @@
             // 
             dateTimePickerSubscription.BackColor = Color.FromArgb(217, 217, 217);
             dateTimePickerSubscription.Font = new Font("Yu Gothic", 12F);
-            dateTimePickerSubscription.Location = new Point(78, 200);
+            dateTimePickerSubscription.Location = new Point(78, 201);
             dateTimePickerSubscription.Name = "dateTimePickerSubscription";
             dateTimePickerSubscription.Size = new Size(250, 33);
             dateTimePickerSubscription.TabIndex = 9;
