@@ -8,6 +8,7 @@ using Infrastructure.Persistence.Data;
 using FluentValidation;
 using Application.Common.Validators;
 using EZCom.Forms;
+using EZCom.Forms.Main;
 
 namespace EZCom.UI
 {
@@ -26,7 +27,9 @@ namespace EZCom.UI
             services.AddValidatorsFromAssemblyContaining<RegistrationValidator>();
             services.AddTransient<Login>();
             services.AddTransient<Registration>(); 
-            services.AddTransient<RegistrationCode>(); 
+            services.AddTransient<RegistrationCode>();
+            services.AddTransient<Main>();
+            services.AddTransient<CreateCompany>();
 
             using var provider = services.BuildServiceProvider();
             var mainForm = provider.GetRequiredService<Login>();

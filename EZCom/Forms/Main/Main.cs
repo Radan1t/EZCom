@@ -26,8 +26,11 @@ namespace EZCom.Forms.Main
         private void buttonCreateCompany_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Створення компанії");
-            
-           
+           // Form CompanyName = new CreateCompany();
+            // CompanyName.Show();
+            // this.Hide();
+
+
         }
     }
 }
