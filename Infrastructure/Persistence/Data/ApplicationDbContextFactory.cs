@@ -32,45 +32,6 @@ namespace Infrastructure.Persistence.Data
             return new ApplicationDbContext(optionsBuilder.Options);
         }
 
-        public async Task<UserCredential> GetGoogleUserCredentialAsync()
-        {
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddUserSecrets<ApplicationDbContextFactory>()
-                .Build();
-
-            var clientSecrets = new ClientSecrets
-            {
-                ClientId = configuration["installed:client_id"],
-                ClientSecret = configuration["installed:client_secret"]
-            };
-
-            return await GoogleWebAuthorizationBroker.AuthorizeAsync(
-                clientSecrets,
-                new[] { "email", "profile" },
-                "user",
-                CancellationToken.None,
-                new FileDataStore("GoogleOAuthStore", true)
-            );
-        }
-
-        public async Task<string> GetNewIdTokenAsync(UserCredential credential)
-        {
-            if (credential.Token.IsExpired(credential.Flow.Clock))
-            {
-                bool result = await credential.RefreshTokenAsync(CancellationToken.None);
-                if (!result)
-                {
-                    throw new InvalidOperationException("Unable to refresh token");
-                }
-            }
-            return credential.Token.IdToken;
-        }
-
-        public void DeleteToken()
-        {
-            var dataStore = new FileDataStore("GoogleOAuthStore", true);
-            dataStore.ClearAsync().Wait();
-        }
+        
     }
 }

@@ -26,11 +26,11 @@
             buttonEditProfile.BackColor = Color.FromArgb(183, 167, 174);
             buttonEditProfile.FlatStyle = FlatStyle.Popup;
             buttonEditProfile.Font = new Font("Yu Gothic", 8.25F);
-            buttonEditProfile.Location = new Point(542, 23);
+            buttonEditProfile.Location = new Point(543, 23);
             buttonEditProfile.Name = "buttonEditProfile";
             buttonEditProfile.Size = new Size(136, 38);
             buttonEditProfile.TabIndex = 0;
-            buttonEditProfile.Text = "Редагувати профіль";
+            buttonEditProfile.Text = "Log Out";
             buttonEditProfile.UseVisualStyleBackColor = false;
             buttonEditProfile.Click += buttonEditProfile_Click;
             // 
@@ -43,7 +43,7 @@
             buttonCreateCompany.Name = "buttonCreateCompany";
             buttonCreateCompany.Size = new Size(136, 37);
             buttonCreateCompany.TabIndex = 1;
-            buttonCreateCompany.Text = "Створити компанію";
+            buttonCreateCompany.Text = "Create company";
             buttonCreateCompany.UseVisualStyleBackColor = false;
             buttonCreateCompany.Click += buttonCreateCompany_Click;
             // 

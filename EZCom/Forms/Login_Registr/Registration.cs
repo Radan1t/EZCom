@@ -13,6 +13,7 @@ using Application.Interfaces.Services;
 using Infrastructure.Services;
 using EZCom.Helper;
 using Google.Apis.Auth;
+using EZCom.UI;
 
 namespace EZCom.Forms
 {
@@ -23,10 +24,10 @@ namespace EZCom.Forms
         private readonly string _idToken;
         private readonly Login _loginForm;
 
-        public Registration(IRegistrationService registrationService, ICodeSenderService codeSenderService, Login login, string idToken)
+        public Registration(Login login, string idToken)
         {
-            _registrationService = registrationService;
-            _codeSenderService = codeSenderService;
+            _registrationService = Program.ServiceProvider.GetRequiredService<IRegistrationService>();
+            _codeSenderService = Program.ServiceProvider.GetRequiredService<ICodeSenderService>();
             _idToken = idToken;
             _loginForm = login;
             InitializeComponent();
@@ -48,7 +49,7 @@ namespace EZCom.Forms
 
         private void Registration_Load(object sender, EventArgs e)
         {
-            // Можна додати логіку для попереднього заповнення полів на основі idToken, якщо необхідно
+     
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -99,7 +100,7 @@ namespace EZCom.Forms
 
                     if (success)
                     {
-                        var registrationCodeForm = new RegistrationCode(user, verificationCode, this, _codeSenderService, _registrationService, _loginForm);
+                        var registrationCodeForm = new RegistrationCode(user, verificationCode, this,_loginForm);
                         registrationCodeForm.Show();
                         this.Hide();
                     }

@@ -32,7 +32,7 @@ namespace EZCom.Forms
 
         private async void buttonSave_Click(object sender, EventArgs e)
         {
-            string companyName = textBoxCompanyName.Text.Trim();
+            /*string companyName = textBoxCompanyName.Text.Trim();
             string contactManagerName = textBoxContactManagerName.Text.Trim();
             string contactManagerPhone = textBoxContactManagerPhone.Text.Trim();
             string contactManagerEmail = textBoxContactManagerEmail.Text.Trim();
@@ -56,7 +56,7 @@ namespace EZCom.Forms
             catch (Exception ex)
             {
                 MessageBox.Show($"Сталася помилка: {ex.Message}", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            }*/
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

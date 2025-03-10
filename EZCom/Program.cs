@@ -14,26 +14,30 @@ namespace EZCom.UI
 {
     internal static class Program
     {
+        public static IServiceProvider ServiceProvider { get; private set; } 
+
         [STAThread]
         static void Main()
         {
             ApplicationConfiguration.Initialize();
             var configuration = new ConfigurationBuilder()
-                .AddUserSecrets<ApplicationDbContext>() 
+                .AddUserSecrets<ApplicationDbContext>()
                 .Build();
+
             var services = new ServiceCollection();
+            services.AddSingleton<IConfiguration>(configuration);
             services.AddApplication();
             services.AddInfrastructure(configuration);
             services.AddValidatorsFromAssemblyContaining<RegistrationValidator>();
             services.AddTransient<Login>();
-            services.AddTransient<Registration>(); 
+            services.AddTransient<Registration>();
             services.AddTransient<RegistrationCode>();
             services.AddTransient<Main>();
             services.AddTransient<CreateCompany>();
 
-            using var provider = services.BuildServiceProvider();
-            var mainForm = provider.GetRequiredService<Login>();
+            ServiceProvider = services.BuildServiceProvider();  
 
+            var mainForm = ServiceProvider.GetRequiredService<Login>();
             System.Windows.Forms.Application.Run(mainForm);
         }
     }

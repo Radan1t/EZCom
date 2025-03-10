@@ -11,6 +11,8 @@ using System.Text;
 using EZCom.Helper;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using EZCom.UI;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EZCom.Forms
 {
@@ -23,15 +25,14 @@ namespace EZCom.Forms
         private DateTime _lastCodeSentTime;
         private readonly Login _loginForm;
         private readonly IRegistrationService _registrationService;
-        public RegistrationCode(UserDTO userData, string verificationCode, Registration registrationForm,
-                        ICodeSenderService codeSenderService, IRegistrationService registrationService, Login login)
+        public RegistrationCode(UserDTO userData, string verificationCode, Registration registrationForm, Login login)
         {
 
             _userData = userData;
             _verificationCode = verificationCode;
             _registrationForm = registrationForm;
-            _registrationService = registrationService;
-            _codeSenderService = codeSenderService;
+            _registrationService = Program.ServiceProvider.GetRequiredService<IRegistrationService>();
+            _codeSenderService = Program.ServiceProvider.GetRequiredService<ICodeSenderService>();
             _loginForm=login;
             InitializeComponent();
             DefaultUI.GroupBoxFix(groupBox1);
