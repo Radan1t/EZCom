@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Application.Common.DTO;
 using Application.Common.Validators;
+using System.Reflection;
 
 namespace EZCom.Application
 {
@@ -11,7 +12,7 @@ namespace EZCom.Application
         {
 
             services.AddScoped<IValidator<UserDTO>, RegistrationValidator>();
-
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;
         }
     }

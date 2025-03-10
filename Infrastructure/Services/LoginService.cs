@@ -42,12 +42,14 @@ namespace Infrastructure.Services
             return new UserDTO
             {
                 Id = user.Id,
-                FirstName = user.First_name,
-                LastName = user.Last_name,
+                First_name = user.First_name,
+                Last_name = user.Last_name,
                 Login = user.Login,
-                Email = user.E_mail,
-                PhoneNumber = user.Phone_number,
-                DateOfBirth = user.Date_of_birthday
+                E_mail= user.E_mail,
+                Phone_number = user.Phone_number,
+                Date_of_birthday = user.Date_of_birthday,
+                UserTypeID=user.UserTypeID,
+                CompanyID=user.CompanyID,
             };
         }
         public async Task<UserDTO> CheckUserExistsAsync(string idToken)
@@ -68,12 +70,14 @@ namespace Infrastructure.Services
             return new UserDTO
             {
                 Id = user.Id,
-                FirstName = user.First_name,
-                LastName = user.Last_name,
+                First_name = user.First_name,
+                Last_name = user.Last_name,
                 Login = user.Login,
-                Email = user.E_mail,
-                PhoneNumber = user.Phone_number,
-                DateOfBirth = user.Date_of_birthday
+                E_mail = user.E_mail,
+                Phone_number = user.Phone_number,
+                Date_of_birthday = user.Date_of_birthday,
+                UserTypeID = user.UserTypeID,
+                CompanyID = user.CompanyID
             };
         }
         public async Task<UserCredential> GetGoogleUserCredentialAsync()

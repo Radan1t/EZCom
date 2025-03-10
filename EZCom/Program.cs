@@ -25,6 +25,7 @@ namespace EZCom.UI
                 .Build();
 
             var services = new ServiceCollection();
+            
             services.AddSingleton<IConfiguration>(configuration);
             services.AddApplication();
             services.AddInfrastructure(configuration);
@@ -32,8 +33,9 @@ namespace EZCom.UI
             services.AddTransient<Login>();
             services.AddTransient<Registration>();
             services.AddTransient<RegistrationCode>();
-            services.AddTransient<Main>();
+            services.AddTransient<MainNoComp>();
             services.AddTransient<CreateCompany>();
+            services.AddTransient<MainForm>();
 
             ServiceProvider = services.BuildServiceProvider();  
 

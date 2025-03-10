@@ -38,7 +38,7 @@ namespace EZCom.Forms
             DefaultUI.GroupBoxFix(groupBox1);
             DefaultUI.GroupBoxFix(groupBox2);
             DefaultUI.SetRoundedPictureBox(groupBox2, 15);
-            label3.Text = $"Email: {_userData.Email}";
+            label3.Text = $"Email: {_userData.E_mail}";
             _lastCodeSentTime = DateTime.MinValue; 
         }
 
@@ -94,7 +94,7 @@ namespace EZCom.Forms
             button3.Enabled = false; // Вимикаємо кнопку, щоб уникнути повторного натискання
 
             // Викликаємо SendCodeAsync і отримуємо результат у змінну
-            var result = await _codeSenderService.SendCodeAsync(_userData.Email);
+            var result = await _codeSenderService.SendCodeAsync(_userData.E_mail);
 
             // Тепер звертаємося до елементів кортежу через result
             if (result.success)

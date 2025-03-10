@@ -45,7 +45,6 @@ namespace EZCom
                     textBox2.UseSystemPasswordChar = false;
                 }
             };
-            this.FormClosed += Login_FormClosed;
         }
 
         private void EZCom_Click(object sender, EventArgs e)
@@ -62,16 +61,18 @@ namespace EZCom
 
             if (user != null)
             {
-                MessageBox.Show($"Welcome, {user.FirstName} {user.LastName}!");
+                MessageBox.Show($"Welcome, {user.First_name} {user.Last_name}!");
                 if (user.CompanyID == 0)
                 {
-                    Main mainForm = new Main(user.Id,this);
+                    MainNoComp mainForm = new MainNoComp(user.Id,this);
                     mainForm.Show();
                     this.Hide();
                 }
                 else
                 {
-                    // Відкриття головної форми
+                    MainForm main= new MainForm();
+                    main.Show();
+                    this.Hide();
                 }
             }
             else
@@ -97,15 +98,17 @@ namespace EZCom
 
             if (user != null)
             {
-                if (user.CompanyID == 0)
+                if (user.CompanyID == null)
                 {
-                    Main mainForm = new Main(user.Id,this);
+                    MainNoComp mainForm = new MainNoComp(user.Id,this);
                     mainForm.Show();
                     this.Hide();
                 }
                 else
                 {
-                    // Відкриття головної форми
+                    MainForm main = new MainForm();
+                    main.Show();
+                    this.Hide();
                 }
             }
             else
@@ -116,10 +119,7 @@ namespace EZCom
 
             this.Hide();
         }
-        private void Login_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            _loginService.DeleteToken(); 
-        }
+
 
 
     }

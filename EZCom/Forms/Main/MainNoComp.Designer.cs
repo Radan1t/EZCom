@@ -1,6 +1,6 @@
 ﻿namespace EZCom.Forms.Main
 {
-    partial class Main
+    partial class MainNoComp
     {
         private System.ComponentModel.IContainer components = null;
         private Button buttonEditProfile;
@@ -19,6 +19,7 @@
         {
             buttonEditProfile = new Button();
             buttonCreateCompany = new Button();
+            label1 = new Label();
             SuspendLayout();
             // 
             // buttonEditProfile
@@ -26,7 +27,7 @@
             buttonEditProfile.BackColor = Color.FromArgb(183, 167, 174);
             buttonEditProfile.FlatStyle = FlatStyle.Popup;
             buttonEditProfile.Font = new Font("Yu Gothic", 8.25F);
-            buttonEditProfile.Location = new Point(543, 23);
+            buttonEditProfile.Location = new Point(552, 12);
             buttonEditProfile.Name = "buttonEditProfile";
             buttonEditProfile.Size = new Size(136, 38);
             buttonEditProfile.TabIndex = 0;
@@ -47,18 +48,32 @@
             buttonCreateCompany.UseVisualStyleBackColor = false;
             buttonCreateCompany.Click += buttonCreateCompany_Click;
             // 
-            // Main
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Lucida Bright", 18F);
+            label1.Location = new Point(18, 121);
+            label1.Name = "label1";
+            label1.Size = new Size(670, 84);
+            label1.TabIndex = 2;
+            label1.Text = "Unfortunately, you are not currently part of a company. \r\nPlease contact your manager to have you added. \r\nAlternatively, you can create your own company.";
+            // 
+            // MainNoComp
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(88, 84, 91);
             ClientSize = new Size(700, 422);
+            Controls.Add(label1);
             Controls.Add(buttonEditProfile);
             Controls.Add(buttonCreateCompany);
-            Name = "Main";
+            Name = "MainNoComp";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Головне меню";
             ResumeLayout(false);
+            PerformLayout();
         }
+
+        private Label label1;
     }
 }

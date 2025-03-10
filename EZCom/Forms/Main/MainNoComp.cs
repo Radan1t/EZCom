@@ -14,12 +14,12 @@ using System.Windows.Forms;
 
 namespace EZCom.Forms.Main
 {
-    public partial class Main : Form
+    public partial class MainNoComp : Form
     {
         int UserID;
         private readonly Login _loginForm;
         private readonly ILoginService _loginService;
-        public Main( int userID, Login loginForm)
+        public MainNoComp( int userID, Login loginForm)
         {
             InitializeComponent();
             UserID = userID;
@@ -29,7 +29,6 @@ namespace EZCom.Forms.Main
 
         private void buttonEditProfile_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Редагування профілю");
             _loginService.DeleteToken();
             _loginForm.Show();
             this.Close();
@@ -37,10 +36,9 @@ namespace EZCom.Forms.Main
 
         private void buttonCreateCompany_Click(object sender, EventArgs e)
         {
-        /*    MessageBox.Show("Створення компанії");
-            Form CompanyName = new CreateCompany();
+            Form CompanyName = new CreateCompany(UserID,this);
             CompanyName.Show();
-            this.Hide();*/
+            this.Hide();
 
 
         }

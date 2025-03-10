@@ -77,13 +77,13 @@ namespace EZCom.Forms
             {
                 var user = new UserDTO
                 {
-                    FirstName = FirstName.Text,
-                    LastName = LastName.Text,
+                    First_name = FirstName.Text,
+                    Last_name = LastName.Text,
                     Login = Login.Text,
-                    Email = Email.Text,
-                    PhoneNumber = Phone.Text,
+                    E_mail = Email.Text,
+                    Phone_number = Phone.Text,
                     Password = Password.Text,
-                    DateOfBirth = DateOfBirth.Value
+                    Date_of_birthday = DateOfBirth.Value
                 };
 
                 var validator = new RegistrationValidator(_registrationService);
@@ -96,7 +96,7 @@ namespace EZCom.Forms
                 }
                 else
                 {
-                    var (success, message, verificationCode) = await _codeSenderService.SendCodeAsync(user.Email);
+                    var (success, message, verificationCode) = await _codeSenderService.SendCodeAsync(user.E_mail);
 
                     if (success)
                     {
