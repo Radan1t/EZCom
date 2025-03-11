@@ -9,13 +9,13 @@ namespace Application.Common.DTO
     public class CompanyDTO
     {
         public int Id { get; set; }
-        public string CompanyName { get; set; }
-        public int UserCount { get; set; }
-        public string ContactManagerName { get; set; }
-        public string ContactManagerPhone { get; set; }
-        public string ContactManagerEmail { get; set; }
-        public int ProductVersionTypeId { get; set; }
+        public string Company_name { get; set; }
+        public int User_count { get; set; }
+        public string Contact_manager_name { get; set; }
+        public string Contact_manager_phone { get; set; }
+        public string Contact_manager_email { get; set; }
+        public int ProductVersionTypeID { get; set; }
         public string ProductVersionName { get; set; } // Опціонально, якщо потрібно ім'я версії
-        public DateTime SubscriptionTime { get; set; }
+        public DateTime Subscription_time { get; set; }
     }
 }

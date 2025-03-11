@@ -8,7 +8,7 @@ namespace Application.Common.DTO
 {
     public class ProductVersionDTO
     {
-        public int Id { get; set; }
+        public int id { get; set; }
         public string Version_name { get; set; }
         public decimal Version_price { get; set; }
         public int User_count { get; set; }

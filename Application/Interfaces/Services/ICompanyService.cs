@@ -11,5 +11,6 @@ namespace Application.Interfaces
     {
         Task CreateCompanyAsync(CompanyDTO company, int UserID);
         Task<IEnumerable<ProductVersionDTO>> GetSubscriptionsAsync();
+        Task<UserDTO> GetUserByIdAsync(int id);
     }
 }

@@ -16,7 +16,6 @@ namespace EZCom.Forms
     {
         private readonly ICompanyService _companyService;
         int UserID;
-        private readonly IEntityService _entityService;
         MainNoComp mainNoComp;
         public CreateCompany( int id, MainNoComp mainNoComp ) 
         {
@@ -24,7 +23,6 @@ namespace EZCom.Forms
             this.mainNoComp = mainNoComp;
             InitializeComponent();
             _companyService = Program.ServiceProvider.GetRequiredService<ICompanyService>();
-            _entityService = Program.ServiceProvider.GetRequiredService<IEntityService>();
             LoadSubscriptionTypes();
         }
 
@@ -43,7 +41,7 @@ namespace EZCom.Forms
 
         private async void buttonSave_Click(object sender, EventArgs e)
         {
-            var manager =await _entityService.GetUserByIdAsync(this.UserID);
+            var manager =await _companyService.GetUserByIdAsync(this.UserID);
             if (manager == null)
             {
                 MessageBox.Show("Менеджер з таким email не знайдений!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -51,20 +49,20 @@ namespace EZCom.Forms
             }
             CompanyDTO companyDto = new CompanyDTO
             {
-                CompanyName = textBoxCompanyName.Text.Trim(),
-                UserCount = 1,
-                ContactManagerName = manager.Last_name + manager.First_name,
-                ContactManagerPhone = manager.Phone_number,
-                ContactManagerEmail = manager.E_mail,
-                ProductVersionTypeId = comboBoxSubscription.SelectedIndex + 1, 
-                SubscriptionTime = DateTime.Now.AddMonths(1)
+                Company_name = textBoxCompanyName.Text.Trim(),
+                User_count = 1,
+                Contact_manager_name = manager.Last_name + manager.First_name,
+                Contact_manager_phone = manager.Phone_number,
+                Contact_manager_email = manager.E_mail,
+                ProductVersionTypeID = comboBoxSubscription.SelectedIndex + 1,
+                Subscription_time = DateTime.Now.AddMonths(1)
             };
 
             // Викликаємо метод сервісу для створення компанії
             try
             {
-                await _companyService.CreateCompanyAsync(companyDto,UserID);
-                MessageBox.Show($"Компанія '{companyDto.CompanyName}' успішно створена", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                await _companyService.CreateCompanyAsync(companyDto, UserID);
+                MessageBox.Show($"Компанія '{companyDto.Company_name}' успішно створена", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MainForm main = new MainForm();
                 main.Show();
                 this.Hide();
