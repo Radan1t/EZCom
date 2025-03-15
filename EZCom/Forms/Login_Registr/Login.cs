@@ -10,25 +10,23 @@ using EZCom.Forms.Main;
 using EZCom.Helper;
 using Infrastructure.Services;
 using Infrastructure.Persistence.Data;
+using EZCom.UI;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EZCom
 {
     public partial class Login : Form
     {
         private readonly ILoginService _loginService;
-        private readonly IRegistrationService _registrationService;
-        private readonly ICodeSenderService _codeSenderService;
+
         private static string[] Scopes = { "email", "profile" };
         private static string ApplicationName = "AuthTSPP";
-        private readonly ApplicationDbContextFactory _dbContextFactory;
 
-        public Login(ILoginService loginService, IRegistrationService registrationService, ICodeSenderService codeSenderService)
+        public Login()
         {
-            _registrationService = registrationService;
-            _codeSenderService = codeSenderService;
-            _dbContextFactory = new ApplicationDbContextFactory();
+
             InitializeComponent();
-            _loginService = loginService;
+            _loginService = Program.ServiceProvider.GetRequiredService<ILoginService>();
             DefaultUI.SetRoundedPictureBox(groupBox1, 15);
             groupBox1.Paint += (sender, e) =>
             {
@@ -47,7 +45,6 @@ namespace EZCom
                     textBox2.UseSystemPasswordChar = false;
                 }
             };
-            this.FormClosed += Login_FormClosed;
         }
 
         private void EZCom_Click(object sender, EventArgs e)
@@ -64,10 +61,19 @@ namespace EZCom
 
             if (user != null)
             {
-                MessageBox.Show($"Welcome, {user.FirstName} {user.LastName}!");
-                Main mainForm = new Main();
-                mainForm.Show();
-                this.Hide();
+                MessageBox.Show($"Welcome, {user.First_name} {user.Last_name}!");
+                if (user.CompanyID == 0)
+                {
+                    MainNoComp mainForm = new MainNoComp(user.Id,this);
+                    mainForm.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MainForm main= new MainForm();
+                    main.Show();
+                    this.Hide();
+                }
             }
             else
             {
@@ -78,35 +84,42 @@ namespace EZCom
         private void button2_Click(object sender, EventArgs e)
         {
             string idToken = null;
-            Registration registrationForm = new Registration(_registrationService, _codeSenderService, this, idToken);
+            Registration registrationForm = new Registration(this, idToken);
             registrationForm.Show();
             this.Hide();
         }
 
         private async void btnGoogleLogin_Click(object sender, EventArgs e)
         {
-            UserCredential credential = await _dbContextFactory.GetGoogleUserCredentialAsync();
-            string idToken = await _dbContextFactory.GetNewIdTokenAsync(credential);
+            UserCredential credential = await _loginService.GetGoogleUserCredentialAsync();
+            string idToken = await _loginService.GetNewIdTokenAsync(credential);
 
             UserDTO user = await _loginService.CheckUserExistsAsync(idToken);
 
             if (user != null)
             {
-                Main mainForm = new Main();
-                mainForm.Show();
+                if (user.CompanyID == null)
+                {
+                    MainNoComp mainForm = new MainNoComp(user.Id,this);
+                    mainForm.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MainForm main = new MainForm();
+                    main.Show();
+                    this.Hide();
+                }
             }
             else
             {
-                Registration registrationForm = new Registration(_registrationService, _codeSenderService,this, idToken);
+                Registration registrationForm = new Registration(this, idToken);
                 registrationForm.Show();
             }
 
             this.Hide();
         }
-        private void Login_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            _dbContextFactory.DeleteToken(); // Викликає метод видалення токену
-        }
+
 
 
     }

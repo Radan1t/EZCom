@@ -11,6 +11,8 @@ using System.Text;
 using EZCom.Helper;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using EZCom.UI;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EZCom.Forms
 {
@@ -23,21 +25,20 @@ namespace EZCom.Forms
         private DateTime _lastCodeSentTime;
         private readonly Login _loginForm;
         private readonly IRegistrationService _registrationService;
-        public RegistrationCode(UserDTO userData, string verificationCode, Registration registrationForm,
-                        ICodeSenderService codeSenderService, IRegistrationService registrationService, Login login)
+        public RegistrationCode(UserDTO userData, string verificationCode, Registration registrationForm, Login login)
         {
 
             _userData = userData;
             _verificationCode = verificationCode;
             _registrationForm = registrationForm;
-            _registrationService = registrationService;
-            _codeSenderService = codeSenderService;
+            _registrationService = Program.ServiceProvider.GetRequiredService<IRegistrationService>();
+            _codeSenderService = Program.ServiceProvider.GetRequiredService<ICodeSenderService>();
             _loginForm=login;
             InitializeComponent();
             DefaultUI.GroupBoxFix(groupBox1);
             DefaultUI.GroupBoxFix(groupBox2);
             DefaultUI.SetRoundedPictureBox(groupBox2, 15);
-            label3.Text = $"Email: {_userData.Email}";
+            label3.Text = $"Email: {_userData.E_mail}";
             _lastCodeSentTime = DateTime.MinValue; 
         }
 
@@ -93,7 +94,7 @@ namespace EZCom.Forms
             button3.Enabled = false; // Вимикаємо кнопку, щоб уникнути повторного натискання
 
             // Викликаємо SendCodeAsync і отримуємо результат у змінну
-            var result = await _codeSenderService.SendCodeAsync(_userData.Email);
+            var result = await _codeSenderService.SendCodeAsync(_userData.E_mail);
 
             // Тепер звертаємося до елементів кортежу через result
             if (result.success)

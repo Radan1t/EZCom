@@ -20,11 +20,11 @@ namespace Application.Common.Validators
         {
             _registrationService = registrationService ?? throw new ArgumentNullException(nameof(registrationService));
 
-            RuleFor(user => user.FirstName)
+            RuleFor(user => user.First_name)
                 .NotEmpty().WithMessage("First Name is required")
                 .MaximumLength(50).WithMessage("First Name must be at most 50 characters");
 
-            RuleFor(user => user.LastName)
+            RuleFor(user => user.Last_name)
                 .NotEmpty().WithMessage("Last Name is required")
                 .MaximumLength(50).WithMessage("Last Name must be at most 50 characters");
 
@@ -34,13 +34,13 @@ namespace Application.Common.Validators
                 .MustAsync(async (login, cancellation) => await _registrationService.IsLoginUnique(login))
                 .WithMessage("Login is already taken");
 
-            RuleFor(user => user.Email)
+            RuleFor(user => user.E_mail)
                 .NotEmpty().WithMessage("Email is required")
                 .EmailAddress().WithMessage("Invalid email format")
                 .MustAsync(async (email, cancellation) => await _registrationService.IsEmailUnique(email))
                 .WithMessage("Email is already registered");
 
-            RuleFor(user => user.PhoneNumber)
+            RuleFor(user => user.Phone_number)
                 .NotEmpty().WithMessage("Phone Number is required")
                 .Matches(@"^\+?[0-9]{10,15}$").WithMessage("Invalid phone number format")
                 .MustAsync(async (phone, cancellation) => await _registrationService.IsPhoneNumberUnique(phone))
@@ -54,7 +54,7 @@ namespace Application.Common.Validators
                 .Matches(@"\d").WithMessage("Password must contain at least one digit")
                 .Matches(@"[\W_]").WithMessage("Password must contain at least one special character (!@#$%^&* etc.)");
 
-            RuleFor(user => user.DateOfBirth)
+            RuleFor(user => user.Date_of_birthday)
                 .NotEmpty().WithMessage("Date of Birth is required")
                 .LessThan(DateTime.Now).WithMessage("Date of Birth must be in the past")
                 .Must(BeAtLeast18YearsOld).WithMessage("User must be at least 18 years old");

@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration;
 using Application.Interfaces.Services;
 using Infrastructure.Services;
+using Application.Interfaces;
 
 
 namespace EZCom.Infrastructure
@@ -23,6 +24,7 @@ namespace EZCom.Infrastructure
             services.AddScoped<IRegistrationService, RegistrationService>();
             services.AddScoped<ICodeSenderService, CodeSenderService>();
             services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<ICompanyService, CompanyService>();
 
             return services;
         }

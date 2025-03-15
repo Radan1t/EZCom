@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Entities
+namespace Application.Common.DTO
 {
-    public class ProductVersionType
+    public class ProductVersionDTO
     {
         public int id { get; set; }
         public string Version_name { get; set; }
         public decimal Version_price { get; set; }
         public int User_count { get; set; }
-        public ICollection<Company> Companies { get; set; }
     }
 }

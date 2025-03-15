@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EZCom", "EZCom.csproj", "{9
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "..\Core\Core.csproj", "{90281FF8-2858-43A2-A380-DD78B914DD32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "..\Application\Application.csproj", "{9A4DDA64-2A27-40D3-8288-CC228CCFE843}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "..\Application\Application.csproj", "{9A4DDA64-2A27-40D3-8288-CC228CCFE843}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "..\Infrastructure\Infrastructure.csproj", "{4938DDAC-65FB-423E-9FDB-B9781C776E5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "..\Infrastructure\Infrastructure.csproj", "{4938DDAC-65FB-423E-9FDB-B9781C776E5E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{90281FF8-2858-43A2-A380-DD78B914DD32} = {90281FF8-2858-43A2-A380-DD78B914DD32}
 		{9A4DDA64-2A27-40D3-8288-CC228CCFE843} = {9A4DDA64-2A27-40D3-8288-CC228CCFE843}

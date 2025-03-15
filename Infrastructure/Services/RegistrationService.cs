@@ -51,13 +51,13 @@ namespace Infrastructure.Services
             {
                 var newUser = new User
                 {
-                    First_name = userDto.FirstName,
-                    Last_name = userDto.LastName,
+                    First_name = userDto.First_name,
+                    Last_name = userDto.Last_name,
                     Login = userDto.Login,
-                    E_mail = userDto.Email,
-                    Phone_number = userDto.PhoneNumber,
+                    E_mail = userDto.E_mail,
+                    Phone_number = userDto.Phone_number,
                     Password = BCrypt.Net.BCrypt.HashPassword(userDto.Password),
-                    Date_of_birthday = userDto.DateOfBirth,
+                    Date_of_birthday = userDto.Date_of_birthday,
                     UserTypeID = 1
                 };
 
