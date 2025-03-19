@@ -9,6 +9,9 @@ using FluentValidation;
 using Application.Common.Validators;
 using EZCom.Forms;
 using EZCom.Forms.Main;
+using EZCom.Forms.Admin;
+using EZCom.Forms.Chat;
+using EZCom.Forms.Meet;
 
 namespace EZCom.UI
 {
@@ -36,6 +39,10 @@ namespace EZCom.UI
             services.AddTransient<MainNoComp>();
             services.AddTransient<CreateCompany>();
             services.AddTransient<MainForm>();
+            services.AddTransient<Adminform>();
+            services.AddTransient<Chatform>();
+            services.AddTransient<NewChat>();
+            services.AddTransient<Meetform>();
 
             ServiceProvider = services.BuildServiceProvider();  
 

@@ -36,7 +36,7 @@ namespace EZCom.Forms.Main
 
         private void buttonCreateCompany_Click(object sender, EventArgs e)
         {
-            Form CompanyName = new CreateCompany(UserID,this);
+            Form CompanyName = new CreateCompany(UserID,this,_loginForm);
             CompanyName.Show();
             this.Hide();
 

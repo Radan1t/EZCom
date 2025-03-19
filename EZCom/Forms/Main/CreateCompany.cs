@@ -14,11 +14,13 @@ namespace EZCom.Forms
 {
     public partial class CreateCompany : Form
     {
+        Login _login;
         private readonly ICompanyService _companyService;
         int UserID;
         MainNoComp mainNoComp;
-        public CreateCompany( int id, MainNoComp mainNoComp ) 
+        public CreateCompany( int id, MainNoComp mainNoComp,Login login ) 
         {
+            _login = login;
             this.UserID = id;
             this.mainNoComp = mainNoComp;
             InitializeComponent();
@@ -63,7 +65,7 @@ namespace EZCom.Forms
             {
                 await _companyService.CreateCompanyAsync(companyDto, UserID);
                 MessageBox.Show($"Компанія '{companyDto.Company_name}' успішно створена", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                MainForm main = new MainForm();
+                MainForm main = new MainForm(UserID,_login);
                 main.Show();
                 this.Hide();
             }

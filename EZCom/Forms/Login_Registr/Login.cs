@@ -70,7 +70,7 @@ namespace EZCom
                 }
                 else
                 {
-                    MainForm main= new MainForm();
+                    MainForm main= new MainForm(user.Id, this);
                     main.Show();
                     this.Hide();
                 }
@@ -106,7 +106,7 @@ namespace EZCom
                 }
                 else
                 {
-                    MainForm main = new MainForm();
+                    MainForm main = new MainForm(user.Id, this);
                     main.Show();
                     this.Hide();
                 }
