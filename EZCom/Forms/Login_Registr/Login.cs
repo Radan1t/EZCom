@@ -64,13 +64,13 @@ namespace EZCom
                 MessageBox.Show($"Welcome, {user.First_name} {user.Last_name}!");
                 if (user.CompanyID == 0)
                 {
-                    MainNoComp mainForm = new MainNoComp(user.Id,this);
+                    MainNoComp mainForm = new MainNoComp(user,this);
                     mainForm.Show();
                     this.Hide();
                 }
                 else
                 {
-                    MainForm main= new MainForm(user.Id, this);
+                    MainForm main= new MainForm(user, this);
                     main.Show();
                     this.Hide();
                 }
@@ -100,13 +100,13 @@ namespace EZCom
             {
                 if (user.CompanyID == null)
                 {
-                    MainNoComp mainForm = new MainNoComp(user.Id,this);
+                    MainNoComp mainForm = new MainNoComp(user,this);
                     mainForm.Show();
                     this.Hide();
                 }
                 else
                 {
-                    MainForm main = new MainForm(user.Id, this);
+                    MainForm main = new MainForm(user, this);
                     main.Show();
                     this.Hide();
                 }

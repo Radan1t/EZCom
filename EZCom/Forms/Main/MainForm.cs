@@ -14,18 +14,21 @@ using EZCom.Forms.Chat;
 using System.Windows.Forms;
 using Application.Interfaces.Services;
 using EZCom.UI;
+using Application.Interfaces;
+using Application.Common.DTO;
 
 namespace EZCom.Forms.Main
 {
     public partial class MainForm : Form
     {
         Login _login;
-        int UserID;
+        UserDTO userDTO;
         private readonly ILoginService _loginService;
-        public MainForm(int ID, Login login)
+        private readonly ICompanyService _companyService;
+        public MainForm(UserDTO user, Login login)
         {
-            UserID = ID;
-            _login = login;
+            this.userDTO = user;
+            this._login = login;
 
             InitializeComponent();
             DefaultUI.GroupBoxFix(groupBox1);
@@ -44,6 +47,7 @@ namespace EZCom.Forms.Main
             flowLayoutPanel2.WrapContents = false;
             flowLayoutPanel2.Dock = DockStyle.Fill;
             _loginService = Program.ServiceProvider.GetRequiredService<ILoginService>();
+            _companyService = Program.ServiceProvider.GetRequiredService<ICompanyService>();
 
         }
         private void AddChat(string chatName, FlowLayoutPanel panel)
@@ -111,22 +115,34 @@ namespace EZCom.Forms.Main
         }
 
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private async void MainForm_Load(object sender, EventArgs e)
         {
-            webView21.Source = new Uri("https://www.google.com");
+          
+
+
+            if (!string.IsNullOrEmpty(userDTO.E_mail))
+            {
+                string calendarUrl = $"https://calendar.google.com/calendar/embed?src={Uri.EscapeDataString(userDTO.E_mail)}&ctz=Europe/Kyiv&bgcolor=%23FFFFFF";
+                webView21.Source = new Uri(calendarUrl);
+            }
+            else
+            {
+                MessageBox.Show("Не вдалося отримати email користувача.");
+            }
 
             for (int i = 1; i <= 20; i++)
             {
                 AddChat($"Чат {i}", flowLayoutPanel1);
                 AddChat($"Чат {i}", flowLayoutPanel2);
             }
-            // Додаємо 4 URL у правий нижній блок (flowLayoutPanel3)
+
+            // Додаємо URL у правий нижній блок
             AddUrlBlock("https://example.com/1", flowLayoutPanel3);
             AddUrlBlock("https://example.com/2", flowLayoutPanel3);
             AddUrlBlock("https://example.com/3", flowLayoutPanel3);
             AddUrlBlock("https://example.com/4", flowLayoutPanel3);
-
         }
+
 
         private void button5_Click(object sender, EventArgs e)
         {

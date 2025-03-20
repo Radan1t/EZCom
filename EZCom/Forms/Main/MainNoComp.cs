@@ -11,18 +11,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Application.Common.DTO;
 
 namespace EZCom.Forms.Main
 {
     public partial class MainNoComp : Form
     {
-        int UserID;
+        UserDTO User;
         private readonly Login _loginForm;
         private readonly ILoginService _loginService;
-        public MainNoComp( int userID, Login loginForm)
+        public MainNoComp( UserDTO user, Login loginForm)
         {
             InitializeComponent();
-            UserID = userID;
+            User = user;
             _loginForm = loginForm;
             _loginService = Program.ServiceProvider.GetRequiredService<ILoginService>();
         }
@@ -36,7 +37,7 @@ namespace EZCom.Forms.Main
 
         private void buttonCreateCompany_Click(object sender, EventArgs e)
         {
-            Form CompanyName = new CreateCompany(UserID,this,_loginForm);
+            Form CompanyName = new CreateCompany(User,this,_loginForm);
             CompanyName.Show();
             this.Hide();
 
