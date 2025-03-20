@@ -16,6 +16,7 @@ using Application.Interfaces.Services;
 using EZCom.UI;
 using Application.Interfaces;
 using Application.Common.DTO;
+using Core.Entities;
 
 namespace EZCom.Forms.Main
 {
@@ -117,7 +118,7 @@ namespace EZCom.Forms.Main
 
         private async void MainForm_Load(object sender, EventArgs e)
         {
-          
+
 
 
             if (!string.IsNullOrEmpty(userDTO.E_mail))
@@ -146,17 +147,20 @@ namespace EZCom.Forms.Main
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Meetform meet = new Meetform();
+            Meetform meet = new Meetform(userDTO);
+            meet.Show();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             Adminform admin = new Adminform();
+            admin.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             NewChat newChat = new NewChat();
+            newChat.Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -164,6 +168,11 @@ namespace EZCom.Forms.Main
             _loginService.DeleteToken();
             _login.Show();
             this.Close();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

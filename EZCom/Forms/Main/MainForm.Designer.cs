@@ -105,9 +105,9 @@
             // 
             // flowLayoutPanel2
             // 
-            flowLayoutPanel2.Location = new Point(6, 28);
+            flowLayoutPanel2.Location = new Point(6, 45);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(225, 219);
+            flowLayoutPanel2.Size = new Size(225, 202);
             flowLayoutPanel2.TabIndex = 1;
             // 
             // label3
@@ -120,6 +120,7 @@
             label3.Size = new Size(65, 25);
             label3.TabIndex = 4;
             label3.Text = "Direct";
+            label3.Click += label3_Click;
             // 
             // groupBox5
             // 
@@ -127,17 +128,17 @@
             groupBox5.Controls.Add(flowLayoutPanel1);
             groupBox5.Controls.Add(label2);
             groupBox5.FlatStyle = FlatStyle.Popup;
-            groupBox5.Location = new Point(6, 31);
+            groupBox5.Location = new Point(6, 28);
             groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(237, 241);
+            groupBox5.Size = new Size(237, 244);
             groupBox5.TabIndex = 0;
             groupBox5.TabStop = false;
             // 
             // flowLayoutPanel1
             // 
-            flowLayoutPanel1.Location = new Point(6, 31);
+            flowLayoutPanel1.Location = new Point(6, 43);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(225, 207);
+            flowLayoutPanel1.Size = new Size(225, 195);
             flowLayoutPanel1.TabIndex = 0;
             // 
             // label2
@@ -145,7 +146,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 204);
             label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(52, 0);
+            label2.Location = new Point(53, 0);
             label2.Name = "label2";
             label2.Size = new Size(120, 25);
             label2.TabIndex = 3;
