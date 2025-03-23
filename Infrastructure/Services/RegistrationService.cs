@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Services
 {
-    internal class RegistrationService : IRegistrationService
+    public class RegistrationService : IRegistrationService
     {
         private readonly IGenericRepository<User> _userRepository;
         private readonly IUnitOfWork _unitOfWork;

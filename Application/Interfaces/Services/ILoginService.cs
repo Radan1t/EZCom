@@ -16,6 +16,8 @@ namespace Application.Interfaces.Services
         Task<UserCredential> GetGoogleUserCredentialAsync(); 
         Task<string> GetNewIdTokenAsync(UserCredential credential);
         void DeleteToken();
+        Task<bool> RequestCalendarPermissionAsync();
+        Task<bool> HasCalendarAccessAsync();
     }
 
 }

@@ -118,31 +118,62 @@ namespace EZCom.Forms.Main
 
         private async void MainForm_Load(object sender, EventArgs e)
         {
-
-
-
-            if (!string.IsNullOrEmpty(userDTO.E_mail))
-            {
-                string calendarUrl = $"https://calendar.google.com/calendar/embed?src={Uri.EscapeDataString(userDTO.E_mail)}&ctz=Europe/Kyiv&bgcolor=%23FFFFFF";
-                webView21.Source = new Uri(calendarUrl);
-            }
-            else
-            {
-                MessageBox.Show("Не вдалося отримати email користувача.");
-            }
-
             for (int i = 1; i <= 20; i++)
             {
                 AddChat($"Чат {i}", flowLayoutPanel1);
                 AddChat($"Чат {i}", flowLayoutPanel2);
             }
 
-            // Додаємо URL у правий нижній блок
             AddUrlBlock("https://example.com/1", flowLayoutPanel3);
             AddUrlBlock("https://example.com/2", flowLayoutPanel3);
             AddUrlBlock("https://example.com/3", flowLayoutPanel3);
             AddUrlBlock("https://example.com/4", flowLayoutPanel3);
+            if (!await _loginService.HasCalendarAccessAsync())
+            {
+                MessageBox.Show("У вас немає доступу до календаря. Натисніть кнопку для надання дозволу.", "Доступ заблоковано", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Button requestAccessButton = new Button
+                {
+                    Text = "Надати доступ до календаря",
+                    Width = 250,
+                    Height = 40,
+                    Location = new Point(10, 10)
+                };
+                requestAccessButton.Click += async (s, ev) => await RequestCalendarAccess();
+                this.Controls.Add(requestAccessButton);
+            }
+            else
+            {
+                LoadCalendar();
+            }
         }
+
+        private void LoadCalendar()
+        {
+            string calendarUrl = $"https://calendar.google.com/calendar/embed?src={Uri.EscapeDataString(userDTO.E_mail)}&ctz=Europe/Kyiv&bgcolor=%23FFFFFF";
+            webView21.Source = new Uri(calendarUrl);
+        }
+        private async Task RequestCalendarAccess()
+        {
+            try
+            {
+                bool success = await _loginService.RequestCalendarPermissionAsync();
+                if (success)
+                {
+                    MessageBox.Show("Доступ до календаря надано!", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadCalendar();
+                }
+                else
+                {
+                    MessageBox.Show("Не вдалося отримати доступ до календаря.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Помилка: {ex.Message}", "Помилка доступу", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
 
 
         private void button5_Click(object sender, EventArgs e)
