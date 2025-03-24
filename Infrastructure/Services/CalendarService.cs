@@ -14,7 +14,7 @@ namespace Infrastructure.Services
     {
         private readonly IConfiguration _configuration;
         private static readonly string[] Scopes = { CalendarService.Scope.Calendar, "openid", "email", "profile" };
-        private static string ApplicationName = "EZCom";
+        private static string ApplicationName = "EZCom Calendar Access";
 
         public GoogleCalendarService(IConfiguration configuration)
         {

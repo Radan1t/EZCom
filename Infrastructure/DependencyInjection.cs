@@ -27,6 +27,7 @@ namespace EZCom.Infrastructure
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<ICalendarService, GoogleCalendarService>();
             services.AddScoped<IGoogleAuthService, GoogleAuthService>();
+            services.AddScoped<IAdminService, AdminService>();
             return services;
         }
     }

@@ -196,7 +196,7 @@ namespace EZCom.Forms.Main
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Adminform admin = new Adminform();
+            Adminform admin = new Adminform(userDTO);
             admin.Show();
         }
 
