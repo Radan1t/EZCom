@@ -120,31 +120,52 @@ namespace Infrastructure.Services
             var company = await _unitOfWork.Repository<Company>().GetFirstOrDefaultAsync(c => c.Id == companyId);
             if (company == null)
             {
-                return false; // Компанія не знайдена
+                return false; 
             }
 
             var department = new Department
             {
                 Department_name = departmentName,
-                Worker_count = 1, // Перший працівник, тому Worker_count = 1
+                Worker_count = 1, 
                 CompanyID = companyId,
                 Company = company
             };
 
-            // Додаємо підрозділ в базу даних
+
             await _unitOfWork.Repository<Department>().InsertAsync(department);
 
-            // Змінюємо UserTypeID користувача на 3
+            // Створення чату для підрозділу
+            var chat = new Chat
+            {
+                Chat_name = $"{departmentName} Chat",
+                Create_DateTime = DateTime.Now,
+            };
+
+
+            await _unitOfWork.Repository<Chat>().InsertAsync(chat);
+
+            // Створюємо зв'язок між чатом і підрозділом
+            var departmentChat = new DepartmentChat
+            {
+                DepartmentID = department.Id,
+                Department = department,
+                ChatID = chat.Id,
+                Chat = chat
+            };
+
+            // Зберігаємо зв'язок між підрозділом і чатом
+            await _unitOfWork.Repository<DepartmentChat>().InsertAsync(departmentChat);
+
+            // Змінюємо UserTypeID користувача на 3 (припускається, що це роль для працівників)
             var user = await _unitOfWork.Repository<User>().GetFirstOrDefaultAsync(u => u.Id == userId);
             if (user == null)
             {
                 return false; // Користувач не знайдений
             }
 
-            // Оновлюємо UserTypeID користувача
             user.UserTypeID = 3;
 
-            // Зберігаємо зміни користувача
+            // Оновлюємо користувача в базі даних
             await _unitOfWork.Repository<User>().UpdateAsync(user);
 
             // Додаємо користувача до підрозділу
@@ -162,6 +183,7 @@ namespace Infrastructure.Services
 
             return true;
         }
+
 
 
     }

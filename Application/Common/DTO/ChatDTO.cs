@@ -9,6 +9,7 @@ namespace Application.Common.DTO
     public class ChatDTO
     {
         public int Id { get; set; }
+        public string Chat_name { get; set; }
         public DateTime Create_DateTime { get; set; }
     }
 }

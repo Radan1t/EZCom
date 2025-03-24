@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.Common.DTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +13,12 @@ namespace EZCom.Forms.Chat
 {
     public partial class Chatform : Form
     {
-        public Chatform()
+        UserDTO _userDTO;
+        int _chatid;
+        public Chatform(UserDTO userDTO, int chatid)
         {
+            this._userDTO = userDTO;
+            _chatid= chatid;
             InitializeComponent();
         }
     }

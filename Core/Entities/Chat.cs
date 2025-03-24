@@ -9,8 +9,8 @@ namespace Core.Entities
     public class Chat
     {
         public int Id { get; set; }
+        public string Chat_name { get; set; }
         public DateTime Create_DateTime { get; set; }
-
         public ICollection<UserChat> UserChats { get; set; }
         public ICollection<Message> Messages { get; set; }
         public ICollection<DepartmentChat> DepartmentChats { get; set; }

@@ -18,7 +18,7 @@ namespace EZCom.Forms.Admin
             _userDTO = userDTO;
             InitializeComponent();
             _adminService = Program.ServiceProvider.GetRequiredService<IAdminService>();
-            LoadUsers();  // Завантажуємо користувачів
+            LoadUsers();  
         }
 
         private async void LoadUsers()
@@ -26,8 +26,14 @@ namespace EZCom.Forms.Admin
             if (_userDTO.CompanyID.HasValue)
             {
                 var users = await _adminService.GetUsersByCompanyAsync(_userDTO.CompanyID.Value);
-                string FullName = $"{_userDTO.First_name} {_userDTO.Last_name}";
-                comboBoxUsers.DataSource = users;
+
+                var usersWithFullName = users.Select(user => new
+                {
+                    user.Id,
+                    FullName = $"{user.First_name} {user.Last_name}"
+                }).ToList();
+
+                comboBoxUsers.DataSource = usersWithFullName;
                 comboBoxUsers.DisplayMember = "FullName";  
                 comboBoxUsers.ValueMember = "Id";  
             }

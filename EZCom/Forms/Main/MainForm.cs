@@ -23,12 +23,14 @@ namespace EZCom.Forms.Main
 {
     public partial class MainForm : Form
     {
+
         Login _login;
         UserDTO userDTO;
         private readonly ILoginService _loginService;
         private readonly ICompanyService _companyService;
         private readonly IGoogleAuthService _googleAuthService;
         private readonly ICalendarService _calendarService;
+        private readonly IChatService _chatService;
         public MainForm(UserDTO user, Login login)
         {
             this.userDTO = user;
@@ -54,30 +56,39 @@ namespace EZCom.Forms.Main
             _companyService = Program.ServiceProvider.GetRequiredService<ICompanyService>();
             _googleAuthService = Program.ServiceProvider.GetRequiredService<IGoogleAuthService>();
             _calendarService = Program.ServiceProvider.GetRequiredService<ICalendarService>();
+            _chatService = Program.ServiceProvider.GetRequiredService<IChatService>();
 
         }
-        private void AddChat(string chatName, FlowLayoutPanel panel)
+        private void AddChat(string chatName, FlowLayoutPanel panel, int chatId)
         {
             int chatPanelWidth = Math.Min(flowLayoutPanel1.ClientSize.Width, flowLayoutPanel2.ClientSize.Width)
                                  - SystemInformation.VerticalScrollBarWidth;
 
-            Panel chatPanel = new Panel();
-            chatPanel.Width = chatPanelWidth;
-            chatPanel.Height = 50;
-            chatPanel.BackColor = Color.LightGray;
-            chatPanel.BorderStyle = BorderStyle.FixedSingle;
-            chatPanel.Cursor = Cursors.Hand;
+            Panel chatPanel = new Panel
+            {
+                Width = chatPanelWidth,
+                Height = 50,
+                BackColor = Color.LightGray,
+                BorderStyle = BorderStyle.FixedSingle,
+                Cursor = Cursors.Hand,
+                Tag = chatId // Зберігаємо ID чату у властивості Tag
+            };
 
-
-            Label chatLabel = new Label();
-            chatLabel.Text = chatName;
-            chatLabel.Font = new Font("Arial", 12, FontStyle.Bold);
-            chatLabel.AutoSize = true;
-            chatLabel.Location = new Point(10, 15);
+            Label chatLabel = new Label
+            {
+                Text = chatName,
+                Font = new Font("Arial", 12, FontStyle.Bold),
+                AutoSize = true,
+                Location = new Point(10, 15)
+            };
 
             chatPanel.Controls.Add(chatLabel);
             panel.Controls.Add(chatPanel);
+
+            // Додаємо обробник кліку
+            chatPanel.Click += ChatPanel_Click;
         }
+
         private void AddUrlBlock(string url, FlowLayoutPanel panel)
         {
             Panel blockPanel = new Panel
@@ -120,14 +131,20 @@ namespace EZCom.Forms.Main
             panel.Controls.Add(blockPanel);
         }
 
+        private void ChatPanel_Click(object sender, EventArgs e)
+        {
+            if (sender is Panel chatPanel && chatPanel.Tag is int chatId)
+            {
+                Chatform chatForm = new Chatform(userDTO, chatId); 
+                chatForm.Show();
+            }
+        }
 
         private async void MainForm_Load(object sender, EventArgs e)
         {
-            for (int i = 1; i <= 20; i++)
-            {
-                AddChat($"Чат {i}", flowLayoutPanel1);
-                AddChat($"Чат {i}", flowLayoutPanel2);
-            }
+            await LoadDepartmentChatsAsync();
+            await LoadUserChatsAsync();
+ 
 
             AddUrlBlock("https://example.com/1", flowLayoutPanel3);
             AddUrlBlock("https://example.com/2", flowLayoutPanel3);
@@ -150,6 +167,38 @@ namespace EZCom.Forms.Main
             else
             {
                 LoadCalendar();
+            }
+        }
+        private async Task LoadDepartmentChatsAsync()
+        {
+            var userDepartments = await _chatService.GetUserDepartmentsAsync(userDTO.Id);
+
+            foreach (var userDepartment in userDepartments)
+            {
+                var departmentChat = await _chatService.GetDepartmentChatAsync(userDepartment.DepartmentID);
+
+                if (departmentChat != null)
+                {
+                    AddChat(departmentChat.Chat_name, flowLayoutPanel1, departmentChat.Id); 
+                }
+            }
+        }
+
+        private async Task LoadUserChatsAsync()
+        {
+            // Отримуємо всі чати, де є користувач
+            var userChats = await _chatService.GetUserChatsAsync(userDTO.Id); // Припускаємо, що є метод для отримання всіх чатів користувача
+
+            foreach (var userChat in userChats)
+            {
+                // Отримуємо чат по ID (якщо є такий)
+                var chat = await _chatService.GetChatByIdAsync(userChat.ChatID);
+
+                if (chat != null)
+                {
+                    // Додаємо чат у FlowLayoutPanel
+                    AddChat(chat.Chat_name, flowLayoutPanel2, chat.Id);
+                }
             }
         }
 
@@ -200,11 +249,21 @@ namespace EZCom.Forms.Main
             admin.Show();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
-            NewChat newChat = new NewChat();
+            NewChat newChat = new NewChat(userDTO);
+            newChat.FormClosed += NewChat_FormClosed; 
             newChat.Show();
         }
+
+ 
+        private async void NewChat_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            flowLayoutPanel2.Controls.Clear();
+            await LoadUserChatsAsync(); 
+                                        
+        }
+
 
         private void button2_Click(object sender, EventArgs e)
         {
