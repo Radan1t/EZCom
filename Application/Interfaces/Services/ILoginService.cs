@@ -13,11 +13,8 @@ namespace Application.Interfaces.Services
     {
         Task<UserDTO> LoginAsync(string login, string password);
         Task<UserDTO> CheckUserExistsAsync(string idToken);
-        Task<UserCredential> GetGoogleUserCredentialAsync(); 
-        Task<string> GetNewIdTokenAsync(UserCredential credential);
-        void DeleteToken();
-        Task<bool> RequestCalendarPermissionAsync();
-        Task<bool> HasCalendarAccessAsync();
+        
+
     }
 
 }

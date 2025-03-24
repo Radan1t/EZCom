@@ -16,13 +16,12 @@ namespace Infrastructure.Services
     {
         private readonly IGenericRepository<User> _userRepository;
         private readonly IConfiguration _configuration;
-        private readonly ICalendarService _calendarService;
 
-        public LoginService(IGenericRepository<User> userRepository, IConfiguration configuration, ICalendarService calendarService)
+        public LoginService(IGenericRepository<User> userRepository, IConfiguration configuration)
         {
             _userRepository = userRepository;
             _configuration = configuration;
-            _calendarService = calendarService;
+
         }
 
         public async Task<UserDTO> LoginAsync(string login, string password)
@@ -49,6 +48,7 @@ namespace Infrastructure.Services
 
         public async Task<UserDTO> CheckUserExistsAsync(string idToken)
         {
+            await Task.Delay(5000);
             var payload = await GoogleJsonWebSignature.ValidateAsync(idToken);
             var email = payload.Email;
             var user = await _userRepository.GetFirstOrDefaultAsync(u => u.E_mail == email);
@@ -67,38 +67,6 @@ namespace Infrastructure.Services
             };
         }
 
-        public async Task<UserCredential> GetGoogleUserCredentialAsync() // ✅ Добавлен метод
-        {
-            return await _calendarService.GetGoogleUserCredentialAsync();
-        }
-
-        public async Task<string> GetNewIdTokenAsync(UserCredential credential)
-        {
-            if (credential.Token.IsExpired(credential.Flow.Clock))
-            {
-                bool result = await credential.RefreshTokenAsync(CancellationToken.None);
-                if (!result)
-                {
-                    throw new InvalidOperationException("Unable to refresh token");
-                }
-            }
-            return credential.Token.IdToken;
-        }
-
-        public void DeleteToken()
-        {
-            var dataStore = new Google.Apis.Util.Store.FileDataStore("GoogleOAuthStore", true);
-            dataStore.ClearAsync().Wait();
-        }
-
-        public async Task<bool> RequestCalendarPermissionAsync()
-        {
-            return await _calendarService.RequestCalendarPermissionAsync();
-        }
-
-        public async Task<bool> HasCalendarAccessAsync()
-        {
-            return await _calendarService.HasCalendarAccessAsync();
-        }
+        
     }
 }

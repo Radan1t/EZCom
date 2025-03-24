@@ -7,6 +7,6 @@ namespace Application.Interfaces.Services
     {
         Task<bool> HasCalendarAccessAsync();
         Task<bool> RequestCalendarPermissionAsync();
-        Task<UserCredential> GetGoogleUserCredentialAsync();
+        Task<UserCredential> GetLoginCredentialAsync();
     }
 }

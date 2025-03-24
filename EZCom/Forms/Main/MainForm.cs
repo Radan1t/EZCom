@@ -17,6 +17,7 @@ using EZCom.UI;
 using Application.Interfaces;
 using Application.Common.DTO;
 using Core.Entities;
+using Google;
 
 namespace EZCom.Forms.Main
 {
@@ -26,6 +27,8 @@ namespace EZCom.Forms.Main
         UserDTO userDTO;
         private readonly ILoginService _loginService;
         private readonly ICompanyService _companyService;
+        private readonly IGoogleAuthService _googleAuthService;
+        private readonly ICalendarService _calendarService;
         public MainForm(UserDTO user, Login login)
         {
             this.userDTO = user;
@@ -49,6 +52,8 @@ namespace EZCom.Forms.Main
             flowLayoutPanel2.Dock = DockStyle.Fill;
             _loginService = Program.ServiceProvider.GetRequiredService<ILoginService>();
             _companyService = Program.ServiceProvider.GetRequiredService<ICompanyService>();
+            _googleAuthService = Program.ServiceProvider.GetRequiredService<IGoogleAuthService>();
+            _calendarService = Program.ServiceProvider.GetRequiredService<ICalendarService>();
 
         }
         private void AddChat(string chatName, FlowLayoutPanel panel)
@@ -128,7 +133,8 @@ namespace EZCom.Forms.Main
             AddUrlBlock("https://example.com/2", flowLayoutPanel3);
             AddUrlBlock("https://example.com/3", flowLayoutPanel3);
             AddUrlBlock("https://example.com/4", flowLayoutPanel3);
-            if (!await _loginService.HasCalendarAccessAsync())
+
+            if (!await _calendarService.HasCalendarAccessAsync())
             {
                 MessageBox.Show("У вас немає доступу до календаря. Натисніть кнопку для надання дозволу.", "Доступ заблоковано", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Button requestAccessButton = new Button
@@ -156,7 +162,7 @@ namespace EZCom.Forms.Main
         {
             try
             {
-                bool success = await _loginService.RequestCalendarPermissionAsync();
+                bool success = await _calendarService.RequestCalendarPermissionAsync();
                 if (success)
                 {
                     MessageBox.Show("Доступ до календаря надано!", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -167,11 +173,17 @@ namespace EZCom.Forms.Main
                     MessageBox.Show("Не вдалося отримати доступ до календаря.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            catch (GoogleApiException ex)
+            {
+                // Це дозволяє отримати специфічні помилки від Google API
+                MessageBox.Show($"Google API Error: {ex.Message}", "Помилка доступу", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
                 MessageBox.Show($"Помилка: {ex.Message}", "Помилка доступу", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
 
 
@@ -196,7 +208,7 @@ namespace EZCom.Forms.Main
 
         private void button2_Click(object sender, EventArgs e)
         {
-            _loginService.DeleteToken();
+            _googleAuthService.DeleteToken();
             _login.Show();
             this.Close();
         }

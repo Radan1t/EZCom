@@ -20,17 +20,19 @@ namespace EZCom.Forms.Main
         UserDTO User;
         private readonly Login _loginForm;
         private readonly ILoginService _loginService;
+        private readonly IGoogleAuthService _googleAuth;
         public MainNoComp( UserDTO user, Login loginForm)
         {
             InitializeComponent();
             User = user;
             _loginForm = loginForm;
             _loginService = Program.ServiceProvider.GetRequiredService<ILoginService>();
+            _googleAuth = Program.ServiceProvider.GetRequiredService<IGoogleAuthService>();
         }
 
         private void buttonEditProfile_Click(object sender, EventArgs e)
         {
-            _loginService.DeleteToken();
+            _googleAuth.DeleteToken();
             _loginForm.Show();
             this.Close();
         }

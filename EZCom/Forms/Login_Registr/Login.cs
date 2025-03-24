@@ -18,15 +18,17 @@ namespace EZCom
     public partial class Login : Form
     {
         private readonly ILoginService _loginService;
+        private readonly IGoogleAuthService _googleAuthService;
 
-        private static string[] Scopes = { "email", "profile" };
-        private static string ApplicationName = "AuthTSPP";
+        private static string[] Scopes = { "openid", "email", "profile" };
+        private static string ApplicationName = "EZCom";
 
         public Login()
         {
 
             InitializeComponent();
             _loginService = Program.ServiceProvider.GetRequiredService<ILoginService>();
+            _googleAuthService = Program.ServiceProvider.GetRequiredService<IGoogleAuthService>();
             DefaultUI.SetRoundedPictureBox(groupBox1, 15);
             groupBox1.Paint += (sender, e) =>
             {
@@ -91,36 +93,47 @@ namespace EZCom
 
         private async void btnGoogleLogin_Click(object sender, EventArgs e)
         {
-            UserCredential credential = await _loginService.GetGoogleUserCredentialAsync();
-            string idToken = await _loginService.GetNewIdTokenAsync(credential);
 
-            UserDTO user = await _loginService.CheckUserExistsAsync(idToken);
+                UserCredential credential = await _googleAuthService.GetGoogleUserCredentialAsync();
+                string idToken = await _googleAuthService.GetNewIdTokenAsync(credential);
 
-            if (user != null)
-            {
-                if (user.CompanyID == null)
+                if (string.IsNullOrEmpty(idToken))
                 {
-                    MainNoComp mainForm = new MainNoComp(user,this);
-                    mainForm.Show();
-                    this.Hide();
+                    MessageBox.Show("Ќе вдалос€ авторизуватис€ через Google. ID токен не отримано.");
+                    return;
+                }
+
+                UserDTO user = await _loginService.CheckUserExistsAsync(idToken);
+
+                if (user != null)
+                {
+                    if (user.CompanyID == null)
+                    {
+                        MainNoComp mainForm = new MainNoComp(user, this);
+                        mainForm.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        MainForm main = new MainForm(user, this);
+                        main.Show();
+                        this.Hide();
+                    }
                 }
                 else
                 {
-                    MainForm main = new MainForm(user, this);
-                    main.Show();
-                    this.Hide();
+                    Registration registrationForm = new Registration(this, idToken);
+                    registrationForm.Show();
                 }
-            }
-            else
-            {
-                Registration registrationForm = new Registration(this, idToken);
-                registrationForm.Show();
+
+                this.Hide();
             }
 
-            this.Hide();
         }
 
 
 
-    }
+
+
+    
 }
