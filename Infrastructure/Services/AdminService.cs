@@ -24,7 +24,23 @@ namespace Infrastructure.Services
             _configuration = configuration;
             _codeSenderService = codeSenderService;
         }
+        public async Task<UserDTO> GetUserByIdAsync(int userId)
+        {
+            var user = await _unitOfWork.Repository<User>().GetByIDAsync(userId);
+            if (user == null)
+            {
+                return null;
+            }
 
+            // Перетворюємо на DTO перед поверненням
+            return new UserDTO
+            {
+                Id = user.Id,
+                First_name = user.First_name,
+                Last_name = user.Last_name,
+                // Інші властивості...
+            };
+        }
         public async Task<bool> AddUserToCompanyAsync(string email, int companyId)
         {
             var user = await _unitOfWork.Repository<User>().GetFirstOrDefaultAsync(u => u.E_mail == email);
@@ -183,6 +199,7 @@ namespace Infrastructure.Services
 
             return true;
         }
+
 
 
 

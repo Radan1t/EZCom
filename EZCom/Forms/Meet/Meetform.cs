@@ -1,47 +1,80 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Application.Common.DTO;
+using Application.Interfaces.Services;
+using EZCom.Application.Interfaces;
+using EZCom.UI;
+using Microsoft.Extensions.DependencyInjection;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Calendar.v3;
+using Google.Apis.Calendar.v3.Data;
+using Google.Apis.Services;
+using System.Threading.Tasks;
 
 namespace EZCom.Forms.Meet
 {
-
     public partial class Meetform : Form
     {
-        UserDTO userDTO;
+        private UserDTO _userDTO;
+        private IMeetService _meetService;
+        private string _generatedMeetLink;
+
         public Meetform(UserDTO user)
         {
+            _userDTO = user;
             InitializeComponent();
-            userDTO = user;
+            _meetService = Program.ServiceProvider.GetRequiredService<IMeetService>();
+            Email_Load();
         }
 
-        private void btnCreateEvent_Click_1(object sender, EventArgs e)
+        public async void Email_Load()
+        {
+            var emails = await _meetService.GetEmployeeEmailsAsync(_userDTO);
+            comboBoxEmails.DataSource = emails.ToList();
+            comboBoxEmails.SelectedIndex = -1;
+            textBoxEmails.Clear();
+        }
+
+        private void comboBoxEmails_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxEmails.SelectedIndex >= 0)
+            {
+                string selectedEmail = comboBoxEmails.SelectedItem.ToString();
+                textBoxEmails.AppendText(selectedEmail + Environment.NewLine);
+            }
+        }
+
+        private async void btnCreateEvent_Click(object sender, EventArgs e)
         {
             string eventName = txtEventName.Text;
-            DateTime startDate = dateTimePicker.Value;
-            DateTime endDate = startDate.AddHours(1); // За замовчуванням тривалість 1 година
-            string emails = txtEmails.Text.Replace(" ", ""); // Прибираємо пробіли
-            string email1 = userDTO.E_mail.ToString();
+            DateTime eventDate = dateTimePicker.Value;
+            var emails = textBoxEmails.Lines.Where(line => !string.IsNullOrEmpty(line)).ToList();
 
-            // Форматуємо дату у формат YYYYMMDDTHHMMSSZ
-            string startFormatted = startDate.ToUniversalTime().ToString("yyyyMMddTHHmmssZ");
-            string endFormatted = endDate.ToUniversalTime().ToString("yyyyMMddTHHmmssZ");
+            _generatedMeetLink = await _meetService.CreateGoogleCalendarEvent(eventName, eventDate, emails);
 
-            // Формуємо URL для Google Calendar
-            string url = $"https://calendar.google.com/calendar/render?action=TEMPLATE" +
-                         $"&text={Uri.EscapeDataString(eventName)}" +
-                         $"&dates={startFormatted}/{endFormatted}" +
-                         $"&add={Uri.EscapeDataString(emails)}";
+            if (!string.IsNullOrEmpty(_generatedMeetLink))
+            {
+                MessageBox.Show("Google Meet Link: " + _generatedMeetLink, "Generated Link");
+            }
+            else
+            {
+                MessageBox.Show("Не вдалося створити зустріч.", "Помилка");
+            }
+        }
 
-            // Відкриваємо посилання у браузері
-            Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+        private void btnCopyLink_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(_generatedMeetLink))
+            {
+                Clipboard.SetText(_generatedMeetLink);
+                MessageBox.Show("Посилання скопійовано в буфер обміну!", "Успіх");
+            }
+            else
+            {
+                MessageBox.Show("Будь ласка, спочатку створіть зустріч.", "Помилка");
+            }
         }
     }
 }

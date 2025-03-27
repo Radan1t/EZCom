@@ -18,5 +18,6 @@ namespace Application.Common.DTO
         public DateTime Date_of_birthday { get; set; }
         public int UserTypeID { get; set; }
         public int? CompanyID { get; set; }
+        // public string? Credential {  get; set; }
     }
 }

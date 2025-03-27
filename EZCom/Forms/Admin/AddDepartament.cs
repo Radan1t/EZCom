@@ -12,6 +12,11 @@ namespace EZCom.Forms.Admin
     {
         private readonly IAdminService _adminService;
         private readonly UserDTO _userDTO;
+        public class UserWithFullName
+        {
+            public int Id { get; set; }
+            public string FullName { get; set; }
+        }
 
         public AddDepartament(UserDTO userDTO)
         {
@@ -27,15 +32,16 @@ namespace EZCom.Forms.Admin
             {
                 var users = await _adminService.GetUsersByCompanyAsync(_userDTO.CompanyID.Value);
 
-                var usersWithFullName = users.Select(user => new
+                var usersWithFullName = users.Select(user => new UserWithFullName
                 {
-                    user.Id,
+                    Id = user.Id,
                     FullName = $"{user.First_name} {user.Last_name}"
                 }).ToList();
 
                 comboBoxUsers.DataSource = usersWithFullName;
-                comboBoxUsers.DisplayMember = "FullName";  
-                comboBoxUsers.ValueMember = "Id";  
+                comboBoxUsers.DisplayMember = "FullName";
+                comboBoxUsers.ValueMember = "Id";
+
             }
         }
 
@@ -55,21 +61,32 @@ namespace EZCom.Forms.Admin
                 return;
             }
 
+            // Get the selected user from combo box (which is UserWithFullName)
+            var selectedUser = (UserWithFullName)comboBoxUsers.SelectedItem;
 
-            var selectedUser = (UserDTO)comboBoxUsers.SelectedItem;
+            // Use the selected user's Id to get the full user details
+            var userDTO = await _adminService.GetUserByIdAsync(selectedUser.Id);
 
+            if (userDTO == null)
+            {
+                MessageBox.Show("Не вдалося знайти користувача.");
+                return;
+            }
+
+            // Proceed to add department
             bool result = await _adminService.AddDepartmentAsync(departmentName, _userDTO.CompanyID.Value, selectedUser.Id);
 
             if (result)
             {
                 MessageBox.Show("Підрозділ успішно створений.");
-                this.Close(); 
+                this.Close();
             }
             else
             {
                 MessageBox.Show("Не вдалося створити підрозділ.");
             }
         }
+
 
     }
 }

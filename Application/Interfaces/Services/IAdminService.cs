@@ -7,6 +7,7 @@ namespace Application.Interfaces
 {
     public interface IAdminService
     {
+        Task<UserDTO> GetUserByIdAsync(int userId);
         Task<bool> AddUserToCompanyAsync(string email, int companyId);
         Task<List<UserDTO>> GetUsersByCompanyAsync(int companyId);
         Task<List<UserType>> GetUserTypesAsync();

@@ -12,6 +12,7 @@ using Infrastructure.Services;
 using Infrastructure.Persistence.Data;
 using EZCom.UI;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 
 namespace EZCom
 {
@@ -105,8 +106,11 @@ namespace EZCom
 
                 UserDTO user = await _loginService.CheckUserExistsAsync(idToken);
 
+                
                 if (user != null)
                 {
+               // user.Credential = JsonConvert.SerializeObject(credential.Token);
+
                     if (user.CompanyID == null)
                     {
                         MainNoComp mainForm = new MainNoComp(user, this);
@@ -130,10 +134,5 @@ namespace EZCom
             }
 
         }
-
-
-
-
-
-    
+ 
 }

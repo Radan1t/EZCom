@@ -31,25 +31,27 @@
             btnCreateEvent = new Button();
             label1 = new Label();
             txtEventName = new TextBox();
+            comboBoxEmails = new ComboBox();
+            textBoxEmails = new TextBox();
             dateTimePicker = new DateTimePicker();
-            txtEmails = new TextBox();
+            button1 = new Button();
             SuspendLayout();
             // 
             // btnCreateEvent
             // 
             btnCreateEvent.Font = new Font("Segoe UI", 15F);
-            btnCreateEvent.Location = new Point(337, 263);
+            btnCreateEvent.Location = new Point(312, 293);
             btnCreateEvent.Name = "btnCreateEvent";
             btnCreateEvent.Size = new Size(150, 40);
             btnCreateEvent.TabIndex = 0;
             btnCreateEvent.Text = "Create Meet";
             btnCreateEvent.UseVisualStyleBackColor = true;
-            btnCreateEvent.Click += btnCreateEvent_Click_1;
+            btnCreateEvent.Click += btnCreateEvent_Click;
             // 
             // label1
             // 
             label1.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            label1.Location = new Point(265, 19);
+            label1.Location = new Point(243, 39);
             label1.Name = "label1";
             label1.Size = new Size(294, 38);
             label1.TabIndex = 1;
@@ -57,7 +59,7 @@
             // 
             // txtEventName
             // 
-            txtEventName.Location = new Point(337, 113);
+            txtEventName.Location = new Point(312, 113);
             txtEventName.Multiline = true;
             txtEventName.Name = "txtEventName";
             txtEventName.Size = new Size(150, 29);
@@ -65,21 +67,39 @@
             txtEventName.Text = "Введіть назву зустрічі";
             txtEventName.TextAlign = HorizontalAlignment.Center;
             // 
+            // comboBoxEmails
+            // 
+            comboBoxEmails.FormattingEnabled = true;
+            comboBoxEmails.Location = new Point(301, 159);
+            comboBoxEmails.Name = "comboBoxEmails";
+            comboBoxEmails.Size = new Size(179, 23);
+            comboBoxEmails.TabIndex = 4;
+            comboBoxEmails.SelectedIndexChanged += comboBoxEmails_SelectedIndexChanged;
+            // 
+            // textBoxEmails
+            // 
+            textBoxEmails.Location = new Point(600, 134);
+            textBoxEmails.Multiline = true;
+            textBoxEmails.Name = "textBoxEmails";
+            textBoxEmails.Size = new Size(158, 100);
+            textBoxEmails.TabIndex = 5;
+            // 
             // dateTimePicker
             // 
-            dateTimePicker.Location = new Point(307, 211);
+            dateTimePicker.Location = new Point(291, 202);
             dateTimePicker.Name = "dateTimePicker";
             dateTimePicker.Size = new Size(200, 23);
-            dateTimePicker.TabIndex = 3;
+            dateTimePicker.TabIndex = 6;
             // 
-            // txtEmails
+            // button1
             // 
-            txtEmails.Location = new Point(326, 157);
-            txtEmails.Multiline = true;
-            txtEmails.Name = "txtEmails";
-            txtEmails.Size = new Size(171, 38);
-            txtEmails.TabIndex = 4;
-            txtEmails.Text = "введіть пошту людей яких хочите додати";
+            button1.Location = new Point(643, 250);
+            button1.Name = "button1";
+            button1.Size = new Size(79, 38);
+            button1.TabIndex = 7;
+            button1.Text = "Копіювати посилання";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += btnCopyLink_Click;
             // 
             // Meetform
             // 
@@ -87,8 +107,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(183, 167, 174);
             ClientSize = new Size(800, 450);
-            Controls.Add(txtEmails);
+            Controls.Add(button1);
             Controls.Add(dateTimePicker);
+            Controls.Add(textBoxEmails);
+            Controls.Add(comboBoxEmails);
             Controls.Add(txtEventName);
             Controls.Add(label1);
             Controls.Add(btnCreateEvent);
@@ -103,7 +125,9 @@
         private Button btnCreateEvent;
         private Label label1;
         private TextBox txtEventName;
+        private ComboBox comboBoxEmails;
+        private TextBox textBoxEmails;
         private DateTimePicker dateTimePicker;
-        private TextBox txtEmails;
+        private Button button1;
     }
 }
