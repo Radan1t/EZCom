@@ -109,7 +109,7 @@ namespace EZCom
                 
                 if (user != null)
                 {
-               // user.Credential = JsonConvert.SerializeObject(credential.Token);
+                user.Credential = JsonConvert.SerializeObject(credential.Token);
 
                     if (user.CompanyID == null)
                     {

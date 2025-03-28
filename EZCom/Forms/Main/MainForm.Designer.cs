@@ -66,7 +66,7 @@
             groupBox1.Controls.Add(groupBox5);
             groupBox1.Location = new Point(12, 41);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(249, 576);
+            groupBox1.Size = new Size(249, 616);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             // 
@@ -74,7 +74,7 @@
             // 
             button1.BackColor = Color.FromArgb(183, 167, 174);
             button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(58, 529);
+            button1.Location = new Point(59, 571);
             button1.Name = "button1";
             button1.Size = new Size(121, 39);
             button1.TabIndex = 3;
@@ -97,17 +97,17 @@
             groupBox6.BackColor = Color.FromArgb(88, 84, 91);
             groupBox6.Controls.Add(flowLayoutPanel2);
             groupBox6.Controls.Add(label3);
-            groupBox6.Location = new Point(6, 275);
+            groupBox6.Location = new Point(6, 281);
             groupBox6.Name = "groupBox6";
-            groupBox6.Size = new Size(237, 253);
+            groupBox6.Size = new Size(237, 284);
             groupBox6.TabIndex = 1;
             groupBox6.TabStop = false;
             // 
             // flowLayoutPanel2
             // 
-            flowLayoutPanel2.Location = new Point(6, 45);
+            flowLayoutPanel2.Location = new Point(6, 50);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(225, 202);
+            flowLayoutPanel2.Size = new Size(225, 228);
             flowLayoutPanel2.TabIndex = 1;
             // 
             // label3
@@ -130,13 +130,13 @@
             groupBox5.FlatStyle = FlatStyle.Popup;
             groupBox5.Location = new Point(6, 28);
             groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(237, 244);
+            groupBox5.Size = new Size(237, 247);
             groupBox5.TabIndex = 0;
             groupBox5.TabStop = false;
             // 
             // flowLayoutPanel1
             // 
-            flowLayoutPanel1.Location = new Point(6, 43);
+            flowLayoutPanel1.Location = new Point(6, 49);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(225, 195);
             flowLayoutPanel1.TabIndex = 0;
@@ -157,7 +157,7 @@
             groupBox2.BackColor = Color.FromArgb(217, 217, 217);
             groupBox2.Location = new Point(274, 41);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(235, 576);
+            groupBox2.Size = new Size(235, 616);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             // 
@@ -168,7 +168,7 @@
             groupBox3.Controls.Add(flowLayoutPanel3);
             groupBox3.Location = new Point(519, 339);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(482, 278);
+            groupBox3.Size = new Size(482, 318);
             groupBox3.TabIndex = 2;
             groupBox3.TabStop = false;
             // 
@@ -184,9 +184,9 @@
             // 
             // flowLayoutPanel3
             // 
-            flowLayoutPanel3.Location = new Point(6, 22);
+            flowLayoutPanel3.Location = new Point(6, 27);
             flowLayoutPanel3.Name = "flowLayoutPanel3";
-            flowLayoutPanel3.Size = new Size(470, 248);
+            flowLayoutPanel3.Size = new Size(470, 290);
             flowLayoutPanel3.TabIndex = 0;
             // 
             // groupBox4
@@ -267,7 +267,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(183, 167, 174);
-            ClientSize = new Size(1013, 629);
+            ClientSize = new Size(1013, 665);
             Controls.Add(groupBox7);
             Controls.Add(groupBox4);
             Controls.Add(groupBox3);

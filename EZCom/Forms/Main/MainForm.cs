@@ -18,6 +18,7 @@ using Application.Interfaces;
 using Application.Common.DTO;
 using Core.Entities;
 using Google;
+using EZCom.Application.Interfaces;
 
 namespace EZCom.Forms.Main
 {
@@ -31,6 +32,7 @@ namespace EZCom.Forms.Main
         private readonly IGoogleAuthService _googleAuthService;
         private readonly ICalendarService _calendarService;
         private readonly IChatService _chatService;
+        private readonly IMeetService _meetService;
         public MainForm(UserDTO user, Login login)
         {
             this.userDTO = user;
@@ -57,6 +59,7 @@ namespace EZCom.Forms.Main
             _googleAuthService = Program.ServiceProvider.GetRequiredService<IGoogleAuthService>();
             _calendarService = Program.ServiceProvider.GetRequiredService<ICalendarService>();
             _chatService = Program.ServiceProvider.GetRequiredService<IChatService>();
+            _meetService = Program.ServiceProvider.GetRequiredService<IMeetService>();
 
         }
         private void AddChat(string chatName, FlowLayoutPanel panel, int chatId)
@@ -89,12 +92,12 @@ namespace EZCom.Forms.Main
             chatPanel.Click += ChatPanel_Click;
         }
 
-        private void AddUrlBlock(string url, FlowLayoutPanel panel)
+        private void AddMeetingBlock(MeetDTO meeting, FlowLayoutPanel panel)
         {
-            Panel blockPanel = new Panel
+            Panel meetPanel = new Panel
             {
                 Width = panel.ClientSize.Width - SystemInformation.VerticalScrollBarWidth,
-                Height = 50,
+                Height = 60,
                 BackColor = Color.LightGray,
                 BorderStyle = BorderStyle.FixedSingle,
                 Margin = new Padding(5),
@@ -102,34 +105,56 @@ namespace EZCom.Forms.Main
                 Anchor = AnchorStyles.Left | AnchorStyles.Right
             };
 
-            TableLayoutPanel container = new TableLayoutPanel
+            Label meetLabel = new Label
             {
-                Dock = DockStyle.Fill,
-                ColumnCount = 1,
-                RowCount = 1
+                Text = $"{meeting.Meet_name} - {meeting.Meet_DateTime:dd.MM.yyyy HH:mm}",
+                Font = new Font("Arial", 10, FontStyle.Bold),
+                AutoSize = true,
+                Location = new Point(10, 10)
             };
-            container.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            container.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
 
-            LinkLabel linkLabel = new LinkLabel
+            LinkLabel meetLink = new LinkLabel
             {
-                Text = url,
+                Text = "Приєднатися",
                 Font = new Font("Arial", 10, FontStyle.Underline),
                 AutoSize = true,
                 LinkColor = Color.Blue,
-                VisitedLinkColor = Color.Purple,
-                Cursor = Cursors.Hand,
-                TextAlign = ContentAlignment.MiddleCenter,
-                Anchor = AnchorStyles.None
+                Location = new Point(10, 30),
+                Cursor = Cursors.Hand
             };
 
-            linkLabel.Click += (sender, e) =>
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo { FileName = url, UseShellExecute = true });
+            meetLink.Click += (sender, e) =>
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = meeting.Meet_URL,
+                    UseShellExecute = true
+                });
 
-            container.Controls.Add(linkLabel, 0, 0);
-            blockPanel.Controls.Add(container);
-            panel.Controls.Add(blockPanel);
+            meetPanel.Controls.Add(meetLabel);
+            meetPanel.Controls.Add(meetLink);
+            panel.Controls.Add(meetPanel);
         }
+        private async Task LoadUserMeetingsAsync()
+        {
+
+            var userMeetings = await _meetService.GetUserMeetingsAsync(userDTO.Id);
+
+
+            var upcomingMeetings = userMeetings
+                .Where(meet => meet.Meet_DateTime > DateTime.Now) 
+                .OrderBy(meet => meet.Meet_DateTime) 
+                .Take(4) 
+                .ToList();
+
+
+            flowLayoutPanel3.Controls.Clear();
+
+            foreach (var meeting in upcomingMeetings)
+            {
+                AddMeetingBlock(meeting, flowLayoutPanel3);
+            }
+        }
+
 
         private void ChatPanel_Click(object sender, EventArgs e)
         {
@@ -144,12 +169,7 @@ namespace EZCom.Forms.Main
         {
             await LoadDepartmentChatsAsync();
             await LoadUserChatsAsync();
- 
-
-            AddUrlBlock("https://example.com/1", flowLayoutPanel3);
-            AddUrlBlock("https://example.com/2", flowLayoutPanel3);
-            AddUrlBlock("https://example.com/3", flowLayoutPanel3);
-            AddUrlBlock("https://example.com/4", flowLayoutPanel3);
+            await LoadUserMeetingsAsync();
 
             if (!await _calendarService.HasCalendarAccessAsync())
             {

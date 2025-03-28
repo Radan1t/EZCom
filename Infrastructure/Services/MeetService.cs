@@ -30,8 +30,20 @@ namespace EZCom.Application.Services
             var employees = await _unitOfWork.Repository<User>().GetAsync();
             return employees.Select(e => e.E_mail).ToList();
         }
+        public async Task<IEnumerable<MeetDTO>> GetUserMeetingsAsync(int userId)
+        {
+            var meetings = await _unitOfWork.Repository<Meet>()
+                .GetAsync(m => m.MeetUsers.Any(mu => mu.UserID == userId));
 
-        public async Task<string> CreateGoogleCalendarEvent(string eventName, DateTime eventDate, List<string> attendees)
+            return meetings.Select(m => new MeetDTO
+            {
+                Meet_name = m.Meet_name,
+                Meet_DateTime = m.Meet_DateTime,
+                Meet_URL = m.Meet_URL
+            }).ToList();
+        }
+
+        public async Task<string> CreateGoogleCalendarEvent(string eventName, DateTime eventDate, List<string> attendees, int companyId)
         {
             try
             {
@@ -74,13 +86,41 @@ namespace EZCom.Application.Services
                 request.ConferenceDataVersion = 1;
 
                 var createdEvent = await request.ExecuteAsync();
+                string meetLink = createdEvent.ConferenceData?.EntryPoints?.FirstOrDefault()?.Uri;
 
-                return createdEvent.ConferenceData?.EntryPoints?.FirstOrDefault()?.Uri;
+                if (!string.IsNullOrEmpty(meetLink))
+                {
+                    // Створюємо новий запис у таблиці Meet
+                    var meet = new Meet
+                    {
+                        Meet_name = eventName,
+                        Meet_DateTime = eventDate,
+                        Meet_URL = meetLink,
+                        CompanyID = companyId,
+                        MeetUsers = new List<MeetUser>()
+                    };
+
+                    // Отримуємо користувачів за email
+                    var users = await _unitOfWork.Repository<User>()
+                        .GetAsync(u => attendees.Contains(u.E_mail));
+
+                    foreach (var user in users)
+                    {
+                        meet.MeetUsers.Add(new MeetUser { UserID = user.Id });
+                    }
+
+                    // Зберігаємо в базі
+                    await _unitOfWork.Repository<Meet>().InsertAsync(meet);
+                    await _unitOfWork.SaveAsync();
+                }
+
+                return meetLink;
             }
             catch (Exception ex)
             {
                 return null;
             }
         }
+
     }
 }

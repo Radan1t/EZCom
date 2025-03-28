@@ -32,10 +32,14 @@ namespace EZCom.Forms.Meet
         public async void Email_Load()
         {
             var emails = await _meetService.GetEmployeeEmailsAsync(_userDTO);
-            comboBoxEmails.DataSource = emails.ToList();
+
+            var filteredEmails = emails.Where(email => email != _userDTO.E_mail).ToList();
+
+            comboBoxEmails.DataSource = filteredEmails;
             comboBoxEmails.SelectedIndex = -1;
             textBoxEmails.Clear();
         }
+
 
         private void comboBoxEmails_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -51,8 +55,9 @@ namespace EZCom.Forms.Meet
             string eventName = txtEventName.Text;
             DateTime eventDate = dateTimePicker.Value;
             var emails = textBoxEmails.Lines.Where(line => !string.IsNullOrEmpty(line)).ToList();
+            emails.Add(_userDTO.E_mail);
 
-            _generatedMeetLink = await _meetService.CreateGoogleCalendarEvent(eventName, eventDate, emails);
+            _generatedMeetLink = await _meetService.CreateGoogleCalendarEvent(eventName, eventDate, emails, _userDTO.CompanyID ?? 0);
 
             if (!string.IsNullOrEmpty(_generatedMeetLink))
             {
