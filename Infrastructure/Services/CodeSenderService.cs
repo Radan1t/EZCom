@@ -87,5 +87,36 @@ namespace Infrastructure.Services
                 return (false, ex.Message);
             }
         }
+
+        public async Task SendMeetingInvitationEmails(List<string> attendees, string eventName, DateTime eventDate, string meetLink)
+        {
+            foreach (var email in attendees)
+            {
+                try
+                {
+                    var smtpClient = new SmtpClient(SmtpServer)
+                    {
+                        Port = SmtpPort,
+                        Credentials = new NetworkCredential(SenderEmail, SenderPassword),
+                        EnableSsl = true
+                    };
+
+                    var mailMessage = new MailMessage
+                    {
+                        From = new MailAddress(SenderEmail),
+                        Subject = $"Запрошення на зустріч: {eventName}",
+                        Body = $"Вас запросили на зустріч '{eventName}'.\n\nДата: {eventDate}\nПосилання на зустріч: {meetLink}",
+                        IsBodyHtml = false
+                    };
+
+                    mailMessage.To.Add(email);
+                    await smtpClient.SendMailAsync(mailMessage);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Помилка при відправці запрошення на {email}: {ex.Message}");
+                }
+            }
+        }
     }
 }

@@ -259,7 +259,7 @@ namespace EZCom.Forms.Main
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Meetform meet = new Meetform(userDTO);
+            FormChoose meet = new FormChoose(userDTO);
             meet.Show();
         }
 

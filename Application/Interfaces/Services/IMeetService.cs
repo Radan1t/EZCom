@@ -12,5 +12,6 @@ namespace EZCom.Application.Interfaces
         Task<IEnumerable<string>> GetEmployeeEmailsAsync(UserDTO user);
         Task<string> CreateGoogleCalendarEvent(string eventName, DateTime eventDate, List<string> attendees, int companyId);
         Task<IEnumerable<MeetDTO>> GetUserMeetingsAsync(int userId);
+        Task<Dictionary<string, List<string>>> GetCompanyDepartmentsWithEmailsAsync(int companyId);
     }
 }

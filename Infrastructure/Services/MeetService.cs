@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 using Application.Common.DTO;
 using Infrastructure.Persistence.Repositories;
 using Core.Entities;
-using Microsoft.Extensions.Configuration; // Add this for accessing configuration
+using Microsoft.Extensions.Configuration;
+using Application.Interfaces.Services; // Add this for accessing configuration
 
 namespace EZCom.Application.Services
 {
@@ -18,11 +19,13 @@ namespace EZCom.Application.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IConfiguration _configuration; // Add this to access configuration
+        private readonly ICodeSenderService _emailService;
 
-        public MeetService(IUnitOfWork unitOfWork, IConfiguration configuration)
+        public MeetService(IUnitOfWork unitOfWork, IConfiguration configuration, ICodeSenderService codeSenderService)
         {
             _unitOfWork = unitOfWork;
             _configuration = configuration; // Inject the configuration
+            _emailService = codeSenderService;
         }
 
         public async Task<IEnumerable<string>> GetEmployeeEmailsAsync(UserDTO user)
@@ -41,6 +44,19 @@ namespace EZCom.Application.Services
                 Meet_DateTime = m.Meet_DateTime,
                 Meet_URL = m.Meet_URL
             }).ToList();
+        }
+
+        public async Task<Dictionary<string, List<string>>> GetCompanyDepartmentsWithEmailsAsync(int companyId)
+        {
+            var departments = await _unitOfWork.Repository<Department>()
+                .GetAsync(d => d.CompanyID == companyId, includeProperties: "UserDepartments.User");
+
+            var departmentData = departments.ToDictionary(
+                d => d.Department_name, // Назва підрозділу
+                d => d.UserDepartments.Select(ud => ud.User.E_mail).ToList() // Список email користувачів
+            );
+
+            return departmentData;
         }
 
         public async Task<string> CreateGoogleCalendarEvent(string eventName, DateTime eventDate, List<string> attendees, int companyId)
@@ -112,6 +128,7 @@ namespace EZCom.Application.Services
                     // Зберігаємо в базі
                     await _unitOfWork.Repository<Meet>().InsertAsync(meet);
                     await _unitOfWork.SaveAsync();
+                    await _emailService.SendMeetingInvitationEmails(attendees, eventName, eventDate, meetLink);
                 }
 
                 return meetLink;
