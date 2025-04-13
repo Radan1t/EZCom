@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
+            label1 = new Label();
             flowLayoutPanel1 = new FlowLayoutPanel();
             textBox1 = new TextBox();
             button1 = new Button();
-            label1 = new Label();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -46,12 +46,25 @@
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            label1.Location = new Point(6, 13);
+            label1.Name = "label1";
+            label1.Size = new Size(57, 21);
+            label1.TabIndex = 0;
+            label1.Text = "label1";
+            // 
             // flowLayoutPanel1
             // 
+            flowLayoutPanel1.AutoScroll = true;
+            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel1.Location = new Point(-3, 44);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(439, 456);
             flowLayoutPanel1.TabIndex = 1;
+            flowLayoutPanel1.WrapContents = false;
             // 
             // textBox1
             // 
@@ -69,15 +82,7 @@
             button1.TabIndex = 3;
             button1.Text = "button1";
             button1.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 20);
-            label1.Name = "label1";
-            label1.Size = new Size(38, 15);
-            label1.TabIndex = 0;
-            label1.Text = "label1";
+            button1.Click += button1_Click;
             // 
             // ChatFormPrivate
             // 

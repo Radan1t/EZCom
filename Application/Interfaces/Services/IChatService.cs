@@ -12,6 +12,9 @@ namespace Application.Interfaces.Services
         Task<List<UserDTO>> GetUsersByCompanyIdAsync(int companyId);
         Task CreateChatAsync(ChatDTO newChat, UserChat userChat1, UserChat userChat2);
         Task<List<UserChatDTO>> GetUserChatsAsync(int userId); 
-        Task<ChatDTO> GetChatByIdAsync(int chatId); 
+        Task<ChatDTO> GetChatByIdAsync(int chatId);
+        Task<UserDTO> GetCompanionInPrivateChatAsync(int chatId, int currentUserId);
+        Task<List<Message>> GetMessagesByChatIdAsync(int chatId);
+        Task SendMessageAsync(MessageDTO message);
     }
 }

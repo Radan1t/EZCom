@@ -40,7 +40,7 @@ namespace EZCom.UI
             services.AddTransient<CreateCompany>();
             services.AddTransient<MainForm>();
             services.AddTransient<Adminform>();
-            services.AddTransient<Chatform>();
+            services.AddTransient<ChatFormPrivate>();
             services.AddTransient<NewChat>();
             services.AddTransient<Meetform>();
 

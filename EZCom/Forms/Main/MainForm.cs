@@ -88,8 +88,15 @@ namespace EZCom.Forms.Main
             chatPanel.Controls.Add(chatLabel);
             panel.Controls.Add(chatPanel);
 
-            // Додаємо обробник кліку
-            chatPanel.Click += ChatPanel_Click;
+            if (panel == flowLayoutPanel2)
+            {
+                chatPanel.Click += ChatPanel_Click;
+            }
+            else
+            {
+                chatPanel.Click += ChatPanel_Click2;
+            }
+            
         }
 
         private void AddMeetingBlock(MeetDTO meeting, FlowLayoutPanel panel)
@@ -160,7 +167,15 @@ namespace EZCom.Forms.Main
         {
             if (sender is Panel chatPanel && chatPanel.Tag is int chatId)
             {
-                Chatform chatForm = new Chatform(userDTO, chatId); 
+                ChatFormPrivate chatForm = new ChatFormPrivate(userDTO, chatId); 
+                chatForm.Show();
+            }
+        }
+        private void ChatPanel_Click2(object sender, EventArgs e)
+        {
+            if (sender is Panel chatPanel && chatPanel.Tag is int chatId)
+            {
+                ChatFormDep chatForm = new ChatFormDep(userDTO, chatId);
                 chatForm.Show();
             }
         }
@@ -207,7 +222,7 @@ namespace EZCom.Forms.Main
         private async Task LoadUserChatsAsync()
         {
             // Отримуємо всі чати, де є користувач
-            var userChats = await _chatService.GetUserChatsAsync(userDTO.Id); // Припускаємо, що є метод для отримання всіх чатів користувача
+            var userChats = await _chatService.GetUserChatsAsync(userDTO.Id);
 
             foreach (var userChat in userChats)
             {

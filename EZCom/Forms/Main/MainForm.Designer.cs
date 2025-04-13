@@ -105,9 +105,9 @@
             // 
             // flowLayoutPanel2
             // 
-            flowLayoutPanel2.Location = new Point(6, 50);
+            flowLayoutPanel2.Location = new Point(6, 28);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(225, 228);
+            flowLayoutPanel2.Size = new Size(225, 250);
             flowLayoutPanel2.TabIndex = 1;
             // 
             // label3
@@ -136,7 +136,7 @@
             // 
             // flowLayoutPanel1
             // 
-            flowLayoutPanel1.Location = new Point(6, 49);
+            flowLayoutPanel1.Location = new Point(6, 28);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(225, 195);
             flowLayoutPanel1.TabIndex = 0;

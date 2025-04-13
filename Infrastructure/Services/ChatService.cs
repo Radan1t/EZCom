@@ -22,11 +22,44 @@ namespace Infrastructure.Services
             var result = await _unitOfWork.Repository<UserDepartment>()
                 .GetAsync(ud => ud.UserID == userId);
 
-            return result.ToList(); 
+            return result.ToList();
         }
+        public async Task<UserDTO> GetCompanionInPrivateChatAsync(int chatId, int currentUserId)
+        {
+            var userChats = await _unitOfWork.Repository<UserChat>()
+            .GetAsync(uc => uc.ChatID == chatId, includeProperties: "User1,User2");
+
+            var userChat = userChats.FirstOrDefault();
 
 
+            if (userChat == null) return null;
 
+            if (userChat.UserID1 != currentUserId && userChat.User1 != null)
+            {
+                return new UserDTO
+                {
+                    Id = userChat.UserID1,
+                    First_name = userChat.User1.First_name,
+                    Last_name = userChat.User1.Last_name,
+                    E_mail = userChat.User1.E_mail,
+                    CompanyID = userChat.User1.CompanyID
+                };
+            }
+
+            if (userChat.UserID2 != currentUserId && userChat.User2 != null)
+            {
+                return new UserDTO
+                {
+                    Id = userChat.UserID2,
+                    First_name = userChat.User2.First_name,
+                    Last_name = userChat.User2.Last_name,
+                    E_mail = userChat.User2.E_mail,
+                    CompanyID = userChat.User2.CompanyID
+                };
+            }
+
+            return null;
+        }
         public async Task<Chat> GetDepartmentChatAsync(int departmentId)
         {
             var departmentChat = await _unitOfWork.Repository<DepartmentChat>()
@@ -123,6 +156,19 @@ namespace Infrastructure.Services
             return userChatDTOs;
         }
 
+        public async Task SendMessageAsync(MessageDTO messageDto)
+        {
+            var message = new Message
+            {
+                ChatID = messageDto.ChatID,
+                UserID = messageDto.UserID,
+                Content = messageDto.Content,
+                DateTime = DateTime.Now
+            };
+
+            await _unitOfWork.Repository<Message>().InsertAsync(message);
+            await _unitOfWork.SaveAsync();
+        }
 
         public async Task<ChatDTO> GetChatByIdAsync(int chatId)
         {
@@ -144,6 +190,14 @@ namespace Infrastructure.Services
 
             return chatDTO;
         }
+        public async Task<List<Message>> GetMessagesByChatIdAsync(int chatId)
+        {
+            var messages = await _unitOfWork.Repository<Message>()
+                .GetAsync(m => m.ChatID == chatId);
+
+            return messages.OrderBy(m => m.DateTime).ToList();
+        }
+
 
 
 
