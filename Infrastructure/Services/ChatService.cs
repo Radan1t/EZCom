@@ -127,9 +127,9 @@ namespace Infrastructure.Services
         public async Task<List<UserChatDTO>> GetUserChatsAsync(int userId)
         {
             var userChats = await _unitOfWork.Repository<UserChat>()
-                .GetAsync(uc => uc.UserID1 == userId); 
+                .GetAsync(uc => uc.UserID1 == userId);
 
-            if (userChats == null )
+            if (userChats == null)
             {
                 return new List<UserChatDTO>();
             }
@@ -169,6 +169,47 @@ namespace Infrastructure.Services
             await _unitOfWork.Repository<Message>().InsertAsync(message);
             await _unitOfWork.SaveAsync();
         }
+        public async Task<DepartmentChat> GetDepartmentChatByChatIdAsync(int chatId)
+        {
+            var result = await _unitOfWork.Repository<DepartmentChat>()
+     .GetAsync(dc => dc.ChatID == chatId, includeProperties: "Department");
+
+            return result.FirstOrDefault();
+
+        }
+
+        public async Task<List<UserDTO>> GetUsersByDepartmentIdAsync(int departmentId)
+        {
+            var userDepartments = await _unitOfWork.Repository<UserDepartment>()
+                .GetAsync(ud => ud.DepartmentID == departmentId, includeProperties: "User");
+
+            return userDepartments
+                .Where(ud => ud.User != null)
+                .Select(ud => new UserDTO
+                {
+                    Id = ud.User.Id,
+                    First_name = ud.User.First_name,
+                    Last_name = ud.User.Last_name,
+                    E_mail = ud.User.E_mail,
+                    CompanyID = ud.User.CompanyID
+                })
+                .ToList();
+        }
+        public async Task<DepartmentChatDTO> GetDepartmentChatDTOByChatIdAsync(int chatId)
+        {
+            var departmentChat = await _unitOfWork.Repository<DepartmentChat>()
+                .GetAsync(dc => dc.ChatID == chatId, includeProperties: "Department");
+
+            var dc = departmentChat.FirstOrDefault();
+            if (dc == null || dc.Department == null) return null;
+
+            return new DepartmentChatDTO
+            {
+                DepartmentID = dc.DepartmentID,
+                ChatID = dc.ChatID,
+
+            };
+        }
 
         public async Task<ChatDTO> GetChatByIdAsync(int chatId)
         {
@@ -197,14 +238,6 @@ namespace Infrastructure.Services
 
             return messages.OrderBy(m => m.DateTime).ToList();
         }
-
-
-
-
-
-
-
-
 
 
     }

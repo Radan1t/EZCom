@@ -27,6 +27,7 @@ namespace EZCom.Forms.Main
 
         Login _login;
         UserDTO userDTO;
+        private System.Windows.Forms.Timer _refreshTimer;
         private readonly ILoginService _loginService;
         private readonly ICompanyService _companyService;
         private readonly IGoogleAuthService _googleAuthService;
@@ -60,7 +61,13 @@ namespace EZCom.Forms.Main
             _calendarService = Program.ServiceProvider.GetRequiredService<ICalendarService>();
             _chatService = Program.ServiceProvider.GetRequiredService<IChatService>();
             _meetService = Program.ServiceProvider.GetRequiredService<IMeetService>();
-
+            _refreshTimer = new System.Windows.Forms.Timer();
+            _refreshTimer.Interval = 10000; // кожні 10 секунд
+            _refreshTimer.Tick += async (s, args) =>
+            {
+                await LoadUserMeetingsAsync();
+            };
+            _refreshTimer.Start();
         }
         private void AddChat(string chatName, FlowLayoutPanel panel, int chatId)
         {

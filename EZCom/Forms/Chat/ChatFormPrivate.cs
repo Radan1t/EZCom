@@ -19,6 +19,8 @@ namespace EZCom.Forms.Chat
         UserDTO _userDTO;
         int _chatid;
         IChatService _chatService;
+        UserDTO _companionName;
+        string sendersName;
         private System.Windows.Forms.Timer _refreshTimer;
 
         public ChatFormPrivate(UserDTO userDTO, int chatid)
@@ -32,11 +34,11 @@ namespace EZCom.Forms.Chat
 
         private async void ChatFormPrivate_Load(object sender, EventArgs e)
         {
-            await LoadMessagesAsync(_chatid, _userDTO.Id);
             await GetUsers();
+            await LoadMessagesAsync(_chatid, _userDTO.Id);
 
             _refreshTimer = new System.Windows.Forms.Timer();
-            _refreshTimer.Interval = 10000; // кожні 5 секунд
+            _refreshTimer.Interval = 10000; // кожні 10 секунд
             _refreshTimer.Tick += async (s, args) =>
             {
                 await LoadMessagesAsync(_chatid, _userDTO.Id);
@@ -52,6 +54,7 @@ namespace EZCom.Forms.Chat
             if (companion != null)
             {
                 label1.Text = $"{companion.First_name} {companion.Last_name}";
+                _companionName = companion;
             }
             else
             {
@@ -61,7 +64,7 @@ namespace EZCom.Forms.Chat
 
         private async Task LoadMessagesAsync(int chatId, int currentUserId)
         {
-            flowLayoutPanel1.SuspendLayout(); // тимчасово зупиняємо оновлення UI
+            flowLayoutPanel1.SuspendLayout();
             flowLayoutPanel1.Controls.Clear();
 
             var messages = (await _chatService.GetMessagesByChatIdAsync(chatId))
@@ -77,7 +80,7 @@ namespace EZCom.Forms.Chat
                     BackColor = message.UserID == currentUserId ? Color.LightGray : Color.White,
                     Padding = new Padding(10),
                     Margin = new Padding(5),
-                    MaximumSize = new Size(flowLayoutPanel1.Width - 100, 0)
+                    MaximumSize = new Size(flowLayoutPanel1.Width - 120, 0)
                 };
 
                 // Текст повідомлення
@@ -89,42 +92,40 @@ namespace EZCom.Forms.Chat
                     MaximumSize = new Size(flowLayoutPanel1.Width - 120, 0)
                 };
 
+                string sendersName = message.UserID == currentUserId
+                    ? $"{_userDTO.First_name} {_userDTO.Last_name}"
+                    : $"{_companionName.First_name} {_companionName.Last_name}";
+
                 // Час повідомлення
                 Label timeLabel = new Label
                 {
                     AutoSize = true,
-                    Text = message.DateTime.ToString("HH:mm"),
+                    Text = sendersName + "\n " + message.DateTime.ToString("HH:mm  M.MM.yyyy"),
                     Font = new Font("Segoe UI", 7, FontStyle.Italic),
                     ForeColor = Color.Gray,
                     Dock = DockStyle.Bottom,
-                    Padding = new Padding(0, 8, 0, 0)
+                    Padding = new Padding(0, 17, 0, 0)
                 };
 
                 messagePanel.Controls.Add(contentLabel);
                 messagePanel.Controls.Add(timeLabel);
 
-                // Обгортка вирівнювання
+                // Обгортка вирівнювання (все зліва)
                 Panel alignPanel = new Panel
                 {
                     Width = flowLayoutPanel1.Width - 25,
                     AutoSize = true
                 };
 
-                // Вирівнювання своїх вправо, інших вліво
-                int rightOffset = messagePanel.PreferredSize.Width + 20;
-
-                messagePanel.Location = message.UserID == currentUserId
-                    ? new Point(alignPanel.Width - rightOffset, 0)
-                    : new Point(10, 0);
+                messagePanel.Location = new Point(10, 0); // Всі зліва
 
                 alignPanel.Controls.Add(messagePanel);
                 flowLayoutPanel1.Controls.Add(alignPanel);
             }
 
             flowLayoutPanel1.ResumeLayout();
-
-
         }
+
 
 
 

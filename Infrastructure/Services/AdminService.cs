@@ -38,7 +38,7 @@ namespace Infrastructure.Services
                 Id = user.Id,
                 First_name = user.First_name,
                 Last_name = user.Last_name,
-                // Інші властивості...
+
             };
         }
         public async Task<bool> AddUserToCompanyAsync(string email, int companyId)

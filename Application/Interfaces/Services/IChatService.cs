@@ -16,5 +16,9 @@ namespace Application.Interfaces.Services
         Task<UserDTO> GetCompanionInPrivateChatAsync(int chatId, int currentUserId);
         Task<List<Message>> GetMessagesByChatIdAsync(int chatId);
         Task SendMessageAsync(MessageDTO message);
+        Task<DepartmentChat> GetDepartmentChatByChatIdAsync(int chatId);
+        Task<List<UserDTO>> GetUsersByDepartmentIdAsync(int departmentId);
+        Task<DepartmentChatDTO> GetDepartmentChatDTOByChatIdAsync(int chatId);
+
     }
 }

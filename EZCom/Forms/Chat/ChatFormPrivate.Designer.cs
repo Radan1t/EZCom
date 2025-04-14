@@ -40,7 +40,7 @@
             // 
             groupBox1.BackColor = Color.FromArgb(217, 217, 217);
             groupBox1.Controls.Add(label1);
-            groupBox1.Location = new Point(-3, -4);
+            groupBox1.Location = new Point(0, 1);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(439, 55);
             groupBox1.TabIndex = 0;
@@ -60,7 +60,7 @@
             // 
             flowLayoutPanel1.AutoScroll = true;
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.Location = new Point(-3, 44);
+            flowLayoutPanel1.Location = new Point(0, 56);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(439, 456);
             flowLayoutPanel1.TabIndex = 1;
@@ -68,7 +68,7 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(-3, 497);
+            textBox1.Location = new Point(0, 511);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(380, 56);
@@ -76,7 +76,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(375, 497);
+            button1.Location = new Point(379, 511);
             button1.Name = "button1";
             button1.Size = new Size(61, 56);
             button1.TabIndex = 3;
@@ -89,7 +89,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(88, 84, 91);
-            ClientSize = new Size(434, 551);
+            ClientSize = new Size(440, 566);
             Controls.Add(button1);
             Controls.Add(textBox1);
             Controls.Add(flowLayoutPanel1);
