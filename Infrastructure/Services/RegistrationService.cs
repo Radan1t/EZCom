@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Services
 {
-    internal class RegistrationService : IRegistrationService
+    public class RegistrationService : IRegistrationService
     {
         private readonly IGenericRepository<User> _userRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -79,6 +79,33 @@ namespace Infrastructure.Services
             }
         }
 
+        public async Task<bool> UpdateUserAsync(UserDTO userDto)
+        {
+            try
+            {
+                var userRepo = _unitOfWork.Repository<User>();
+                var existingUser = await userRepo.GetFirstOrDefaultAsync(u => u.Id == userDto.Id);
+
+                if (existingUser == null)
+                    return false;
+
+                existingUser.First_name = userDto.First_name;
+                existingUser.Last_name = userDto.Last_name;
+                existingUser.E_mail = userDto.E_mail;
+                existingUser.Phone_number = userDto.Phone_number;
+                existingUser.Date_of_birthday = userDto.Date_of_birthday;
+
+                await userRepo.UpdateAsync(existingUser);
+                await _unitOfWork.SaveAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[ERROR] {ex}");
+                return false;
+            }
+        }
 
 
     }

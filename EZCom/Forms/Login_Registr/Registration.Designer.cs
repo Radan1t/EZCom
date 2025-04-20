@@ -420,6 +420,7 @@
             // Registration
             // 
             AutoScaleMode = AutoScaleMode.None;
+            BackColor = Color.FromArgb(88, 84, 91);
             ClientSize = new Size(402, 644);
             Controls.Add(groupBox8);
             Controls.Add(groupBox7);

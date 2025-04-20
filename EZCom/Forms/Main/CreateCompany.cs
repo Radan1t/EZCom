@@ -14,12 +14,14 @@ namespace EZCom.Forms
 {
     public partial class CreateCompany : Form
     {
+        Login _login;
         private readonly ICompanyService _companyService;
-        int UserID;
+        UserDTO User;
         MainNoComp mainNoComp;
-        public CreateCompany( int id, MainNoComp mainNoComp ) 
+        public CreateCompany( UserDTO user, MainNoComp mainNoComp,Login login ) 
         {
-            this.UserID = id;
+            _login = login;
+            this.User = user;
             this.mainNoComp = mainNoComp;
             InitializeComponent();
             _companyService = Program.ServiceProvider.GetRequiredService<ICompanyService>();
@@ -41,7 +43,7 @@ namespace EZCom.Forms
 
         private async void buttonSave_Click(object sender, EventArgs e)
         {
-            var manager =await _companyService.GetUserByIdAsync(this.UserID);
+            var manager = User;
             if (manager == null)
             {
                 MessageBox.Show("Менеджер з таким email не знайдений!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -61,9 +63,9 @@ namespace EZCom.Forms
             // Викликаємо метод сервісу для створення компанії
             try
             {
-                await _companyService.CreateCompanyAsync(companyDto, UserID);
+                await _companyService.CreateCompanyAsync(companyDto, User.Id);
                 MessageBox.Show($"Компанія '{companyDto.Company_name}' успішно створена", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                MainForm main = new MainForm();
+                MainForm main = new MainForm(User,_login);
                 main.Show();
                 this.Hide();
             }

@@ -13,5 +13,6 @@ namespace Application.Interfaces.Services
         Task<bool> IsEmailUnique(string email);
         Task<bool> IsPhoneNumberUnique(string phoneNumber);
         Task<bool> RegisterUserAsync(UserDTO user);
+        Task<bool> UpdateUserAsync(UserDTO userDto);
     }
 }

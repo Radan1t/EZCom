@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Application.Interfaces.Services;
 using Infrastructure.Services;
 using Application.Interfaces;
+using EZCom.Application.Services;
 
 
 namespace EZCom.Infrastructure
@@ -25,7 +26,11 @@ namespace EZCom.Infrastructure
             services.AddScoped<ICodeSenderService, CodeSenderService>();
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<ICompanyService, CompanyService>();
-
+            services.AddScoped<ICalendarService, GoogleCalendarService>();
+            services.AddScoped<IGoogleAuthService, GoogleAuthService>();
+            services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<IChatService, ChatService>();
+            services.AddScoped<IMeetService, MeetService>();
             return services;
         }
     }
