@@ -19,6 +19,9 @@ namespace Application.Interfaces.Services
         Task<DepartmentChat> GetDepartmentChatByChatIdAsync(int chatId);
         Task<List<UserDTO>> GetUsersByDepartmentIdAsync(int departmentId);
         Task<DepartmentChatDTO> GetDepartmentChatDTOByChatIdAsync(int chatId);
+        Task AddDepartment(int departmentId, int userId);
+        Task RemoveFromDepartmentAsync(int departmentId, int userId);
+
 
     }
 }

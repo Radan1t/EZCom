@@ -43,6 +43,7 @@ namespace EZCom.UI
             services.AddTransient<ChatFormPrivate>();
             services.AddTransient<NewChat>();
             services.AddTransient<Meetform>();
+            services.AddTransient<Addindep>();
 
             ServiceProvider = services.BuildServiceProvider();  
 

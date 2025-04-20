@@ -32,6 +32,7 @@
             textBox1 = new TextBox();
             flowLayoutPanel1 = new FlowLayoutPanel();
             groupBox1 = new GroupBox();
+            button2 = new Button();
             label1 = new Label();
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -67,12 +68,23 @@
             // groupBox1
             // 
             groupBox1.BackColor = Color.FromArgb(217, 217, 217);
+            groupBox1.Controls.Add(button2);
             groupBox1.Controls.Add(label1);
             groupBox1.Location = new Point(-1, 1);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(439, 55);
             groupBox1.TabIndex = 4;
             groupBox1.TabStop = false;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(353, 14);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 1;
+            button2.Text = "button2";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // label1
             // 
@@ -109,5 +121,6 @@
         private FlowLayoutPanel flowLayoutPanel1;
         private GroupBox groupBox1;
         private Label label1;
+        private Button button2;
     }
 }

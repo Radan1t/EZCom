@@ -238,6 +238,34 @@ namespace Infrastructure.Services
 
             return messages.OrderBy(m => m.DateTime).ToList();
         }
+        public async Task AddDepartment(int departmentId, int userId)
+        {
+            var existing = await _unitOfWork.Repository<UserDepartment>()
+                .GetFirstOrDefaultAsync(ud => ud.DepartmentID == departmentId && ud.UserID == userId);
+
+            if (existing != null)
+                return; 
+
+            var userDepartment = new UserDepartment
+            {
+                DepartmentID = departmentId,
+                UserID = userId
+            };
+
+            await _unitOfWork.Repository<UserDepartment>().InsertAsync(userDepartment);
+            await _unitOfWork.SaveAsync();
+        }
+        public async Task RemoveFromDepartmentAsync(int departmentId, int userId)
+        {
+            var existing = await _unitOfWork.Repository<UserDepartment>()
+                .GetFirstOrDefaultAsync(ud => ud.DepartmentID == departmentId && ud.UserID == userId);
+
+            if (existing == null)
+                return; // Користувач не в підрозділі — нічого не робимо
+
+            await _unitOfWork.Repository<UserDepartment>().DeleteAsync(existing);
+            await _unitOfWork.SaveAsync();
+        }
 
 
     }

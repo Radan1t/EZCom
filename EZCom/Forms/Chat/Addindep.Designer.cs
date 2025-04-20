@@ -1,6 +1,6 @@
-﻿namespace EZCom.Forms.Admin
+﻿namespace EZCom.Forms.Chat
 {
-    partial class Adminform
+    partial class Addindep
     {
         /// <summary>
         /// Required designer variable.
@@ -28,59 +28,56 @@
         /// </summary>
         private void InitializeComponent()
         {
+            comboBox1 = new ComboBox();
             button1 = new Button();
             button2 = new Button();
-            button3 = new Button();
             SuspendLayout();
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(64, 72);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(282, 23);
+            comboBox1.TabIndex = 0;
             // 
             // button1
             // 
-            button1.Location = new Point(61, 107);
+            button1.Location = new Point(64, 151);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
-            button1.TabIndex = 0;
-            button1.Text = "AddUser";
+            button1.TabIndex = 1;
+            button1.Text = "Add";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
             // button2
             // 
-            button2.Location = new Point(214, 107);
+            button2.Location = new Point(271, 151);
             button2.Name = "button2";
             button2.Size = new Size(75, 23);
-            button2.TabIndex = 1;
-            button2.Text = "Change User Access";
+            button2.TabIndex = 2;
+            button2.Text = "Remove";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
-            // button3
-            // 
-            button3.Location = new Point(359, 107);
-            button3.Name = "button3";
-            button3.Size = new Size(75, 23);
-            button3.TabIndex = 2;
-            button3.Text = "AddDepatment";
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
-            // 
-            // Adminform
+            // Addindep
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(507, 262);
-            Controls.Add(button3);
+            ClientSize = new Size(412, 258);
             Controls.Add(button2);
             Controls.Add(button1);
-            Name = "Adminform";
-            Text = "Admin";
+            Controls.Add(comboBox1);
+            Name = "Addindep";
+            Text = "Addindep";
             ResumeLayout(false);
         }
 
         #endregion
 
+        private ComboBox comboBox1;
         private Button button1;
         private Button button2;
-        private Button button3;
-        private Button button4;
     }
 }

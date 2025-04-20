@@ -66,6 +66,7 @@ namespace EZCom.Forms.Main
             _refreshTimer.Tick += async (s, args) =>
             {
                 await LoadUserMeetingsAsync();
+
             };
             _refreshTimer.Start();
         }

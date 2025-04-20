@@ -19,6 +19,7 @@ namespace EZCom.Forms.Chat
     {
         UserDTO _userDTO;
         int _chatid;
+        int _departmentId;
         IChatService _chatService;
         private System.Windows.Forms.Timer _refreshTimer;
         private List<UserDTO> _departmentUsers = new List<UserDTO>();
@@ -54,7 +55,7 @@ namespace EZCom.Forms.Chat
                 label1.Text = "Підрозділ не знайдено.";
                 return;
             }
-
+            _departmentId= departmentChat.DepartmentID;
             label1.Text = "Чат підрозділу: " + departmentChat.Department.Department_name;
 
             var usersInDepartment = await _chatService.GetUsersByDepartmentIdAsync(departmentChat.DepartmentID);
@@ -148,6 +149,12 @@ namespace EZCom.Forms.Chat
                 textBox1.Clear();
                 await LoadMessagesAsync(_chatid, _userDTO.Id);
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Addindep addindep = new Addindep(_userDTO, _departmentId);
+            addindep.Show();
         }
     }
 }
