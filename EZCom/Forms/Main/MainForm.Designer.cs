@@ -37,7 +37,6 @@
             groupBox5 = new GroupBox();
             flowLayoutPanel1 = new FlowLayoutPanel();
             label2 = new Label();
-            groupBox2 = new GroupBox();
             groupBox3 = new GroupBox();
             label4 = new Label();
             flowLayoutPanel3 = new FlowLayoutPanel();
@@ -152,21 +151,12 @@
             label2.TabIndex = 3;
             label2.Text = "Department";
             // 
-            // groupBox2
-            // 
-            groupBox2.BackColor = Color.FromArgb(217, 217, 217);
-            groupBox2.Location = new Point(274, 41);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(235, 616);
-            groupBox2.TabIndex = 1;
-            groupBox2.TabStop = false;
-            // 
             // groupBox3
             // 
             groupBox3.BackColor = Color.FromArgb(217, 217, 217);
             groupBox3.Controls.Add(label4);
             groupBox3.Controls.Add(flowLayoutPanel3);
-            groupBox3.Location = new Point(519, 339);
+            groupBox3.Location = new Point(267, 346);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(482, 318);
             groupBox3.TabIndex = 2;
@@ -193,7 +183,7 @@
             // 
             groupBox4.BackColor = Color.FromArgb(217, 217, 217);
             groupBox4.Controls.Add(webView21);
-            groupBox4.Location = new Point(519, 30);
+            groupBox4.Location = new Point(267, 41);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(482, 305);
             groupBox4.TabIndex = 3;
@@ -225,7 +215,7 @@
             // 
             // button5
             // 
-            button5.Location = new Point(673, 0);
+            button5.Location = new Point(421, -1);
             button5.Name = "button5";
             button5.Size = new Size(70, 29);
             button5.TabIndex = 3;
@@ -235,7 +225,7 @@
             // 
             // button4
             // 
-            button4.Location = new Point(758, 1);
+            button4.Location = new Point(506, 0);
             button4.Name = "button4";
             button4.Size = new Size(70, 29);
             button4.TabIndex = 2;
@@ -245,7 +235,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(847, 1);
+            button3.Location = new Point(595, 0);
             button3.Name = "button3";
             button3.Size = new Size(70, 29);
             button3.TabIndex = 1;
@@ -254,7 +244,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(932, 1);
+            button2.Location = new Point(680, 0);
             button2.Name = "button2";
             button2.Size = new Size(70, 29);
             button2.TabIndex = 0;
@@ -267,11 +257,10 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(183, 167, 174);
-            ClientSize = new Size(1013, 665);
+            ClientSize = new Size(748, 665);
             Controls.Add(groupBox7);
             Controls.Add(groupBox4);
             Controls.Add(groupBox3);
-            Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Name = "MainForm";
             Text = "Main";
@@ -293,7 +282,6 @@
         #endregion
 
         private GroupBox groupBox1;
-        private GroupBox groupBox2;
         private GroupBox groupBox3;
         private GroupBox groupBox4;
         private Microsoft.Web.WebView2.WinForms.WebView2 webView21;

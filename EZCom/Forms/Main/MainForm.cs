@@ -41,7 +41,7 @@ namespace EZCom.Forms.Main
 
             InitializeComponent();
             DefaultUI.GroupBoxFix(groupBox1);
-            DefaultUI.GroupBoxFix(groupBox2);
+
             DefaultUI.GroupBoxFix(groupBox3);
             DefaultUI.GroupBoxFix(groupBox4);
             DefaultUI.GroupBoxFix(groupBox5);
