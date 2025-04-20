@@ -69,6 +69,15 @@ namespace EZCom.Forms.Main
 
             };
             _refreshTimer.Start();
+            if(userDTO.UserTypeID == 4||userDTO.UserTypeID == 3)
+            {
+                button4.Visible = true;
+                button5.Visible = true;
+            }
+            else if (userDTO.UserTypeID == 2)
+            {
+                button5.Visible = true;
+            }
         }
         private void AddChat(string chatName, FlowLayoutPanel panel, int chatId)
         {
@@ -98,13 +107,13 @@ namespace EZCom.Forms.Main
 
             if (panel == flowLayoutPanel2)
             {
-                chatPanel.Click += ChatPanel_Click;
+                chatPanel.Click += PrivateChat_Click;
             }
             else
             {
-                chatPanel.Click += ChatPanel_Click2;
+                chatPanel.Click += DepartmentChat_Click;
             }
-            
+
         }
 
         private void AddMeetingBlock(MeetDTO meeting, FlowLayoutPanel panel)
@@ -156,9 +165,9 @@ namespace EZCom.Forms.Main
 
 
             var upcomingMeetings = userMeetings
-                .Where(meet => meet.Meet_DateTime > DateTime.Now) 
-                .OrderBy(meet => meet.Meet_DateTime) 
-                .Take(4) 
+                .Where(meet => meet.Meet_DateTime > DateTime.Now)
+                .OrderBy(meet => meet.Meet_DateTime)
+                .Take(4)
                 .ToList();
 
 
@@ -171,15 +180,15 @@ namespace EZCom.Forms.Main
         }
 
 
-        private void ChatPanel_Click(object sender, EventArgs e)
+        private void PrivateChat_Click(object sender, EventArgs e)
         {
             if (sender is Panel chatPanel && chatPanel.Tag is int chatId)
             {
-                ChatFormPrivate chatForm = new ChatFormPrivate(userDTO, chatId); 
+                ChatFormPrivate chatForm = new ChatFormPrivate(userDTO, chatId);
                 chatForm.Show();
             }
         }
-        private void ChatPanel_Click2(object sender, EventArgs e)
+        private void DepartmentChat_Click(object sender, EventArgs e)
         {
             if (sender is Panel chatPanel && chatPanel.Tag is int chatId)
             {
@@ -222,7 +231,7 @@ namespace EZCom.Forms.Main
 
                 if (departmentChat != null)
                 {
-                    AddChat(departmentChat.Chat_name, flowLayoutPanel1, departmentChat.Id); 
+                    AddChat(departmentChat.Chat_name, flowLayoutPanel1, departmentChat.Id);
                 }
             }
         }
@@ -280,31 +289,31 @@ namespace EZCom.Forms.Main
 
 
 
-        private void button5_Click(object sender, EventArgs e)
+        private void MeetingButton_Click(object sender, EventArgs e)
         {
             FormChoose meet = new FormChoose(userDTO);
             meet.Show();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void AdminButton_Click(object sender, EventArgs e)
         {
             Adminform admin = new Adminform(userDTO);
             admin.Show();
         }
 
-        private async void button1_Click(object sender, EventArgs e)
+        private async void CreateChat_Click(object sender, EventArgs e)
         {
             NewChat newChat = new NewChat(userDTO);
-            newChat.FormClosed += NewChat_FormClosed; 
+            newChat.FormClosed += NewChat_FormClosed;
             newChat.Show();
         }
 
- 
+
         private async void NewChat_FormClosed(object sender, FormClosedEventArgs e)
         {
             flowLayoutPanel2.Controls.Clear();
-            await LoadUserChatsAsync(); 
-                                        
+            await LoadUserChatsAsync();
+
         }
 
 
@@ -318,6 +327,12 @@ namespace EZCom.Forms.Main
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Profile profile = new Profile(userDTO);
+            profile.Show();
         }
     }
 }

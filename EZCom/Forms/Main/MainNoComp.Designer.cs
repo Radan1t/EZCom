@@ -31,7 +31,7 @@
             buttonEditProfile.Name = "buttonEditProfile";
             buttonEditProfile.Size = new Size(136, 38);
             buttonEditProfile.TabIndex = 0;
-            buttonEditProfile.Text = "Log Out";
+            buttonEditProfile.Text = "Вийти";
             buttonEditProfile.UseVisualStyleBackColor = false;
             buttonEditProfile.Click += buttonEditProfile_Click;
             // 
@@ -44,7 +44,7 @@
             buttonCreateCompany.Name = "buttonCreateCompany";
             buttonCreateCompany.Size = new Size(136, 37);
             buttonCreateCompany.TabIndex = 1;
-            buttonCreateCompany.Text = "Create company";
+            buttonCreateCompany.Text = "Створити компанію";
             buttonCreateCompany.UseVisualStyleBackColor = false;
             buttonCreateCompany.Click += buttonCreateCompany_Click;
             // 
@@ -52,11 +52,12 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Lucida Bright", 18F);
-            label1.Location = new Point(18, 121);
+            label1.ForeColor = SystemColors.ButtonFace;
+            label1.Location = new Point(71, 143);
             label1.Name = "label1";
-            label1.Size = new Size(670, 84);
+            label1.Size = new Size(546, 84);
             label1.TabIndex = 2;
-            label1.Text = "Unfortunately, you are not currently part of a company. \r\nPlease contact your manager to have you added. \r\nAlternatively, you can create your own company.";
+            label1.Text = "На жаль, наразі ви не є учасником жодної компанії.\r\nЗв'яжіться зі своїм менеджером, щоб вас додали.\r\nАбо ви можете створити власну компанію.\r\n";
             // 
             // MainNoComp
             // 

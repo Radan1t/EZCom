@@ -37,6 +37,7 @@
             button3 = new Button();
             textBox1 = new TextBox();
             label2 = new Label();
+            label4 = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -50,7 +51,7 @@
             groupBox1.Controls.Add(groupBox2);
             groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(589, 269);
+            groupBox1.Size = new Size(589, 283);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             // 
@@ -60,11 +61,11 @@
             button2.FlatStyle = FlatStyle.Popup;
             button2.Font = new Font("Lucida Bright", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button2.ForeColor = Color.FromArgb(27, 42, 55);
-            button2.Location = new Point(343, 208);
+            button2.Location = new Point(353, 208);
             button2.Name = "button2";
             button2.Size = new Size(108, 53);
             button2.TabIndex = 3;
-            button2.Text = "Confirm";
+            button2.Text = "Підтвердити";
             button2.UseVisualStyleBackColor = false;
             button2.Click += button2_Click;
             // 
@@ -74,11 +75,11 @@
             button1.FlatStyle = FlatStyle.Popup;
             button1.Font = new Font("Lucida Bright", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.FromArgb(27, 42, 55);
-            button1.Location = new Point(134, 208);
+            button1.Location = new Point(136, 208);
             button1.Name = "button1";
             button1.Size = new Size(108, 53);
             button1.TabIndex = 2;
-            button1.Text = "Back";
+            button1.Text = "Повернутися";
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
@@ -96,6 +97,7 @@
             // groupBox2
             // 
             groupBox2.BackColor = Color.FromArgb(183, 167, 174);
+            groupBox2.Controls.Add(label4);
             groupBox2.Controls.Add(label3);
             groupBox2.Controls.Add(button3);
             groupBox2.Controls.Add(textBox1);
@@ -110,11 +112,11 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Lucida Bright", 12F, FontStyle.Bold);
-            label3.Location = new Point(147, 45);
+            label3.Location = new Point(163, 52);
             label3.Name = "label3";
-            label3.Size = new Size(99, 18);
+            label3.Size = new Size(100, 18);
             label3.TabIndex = 3;
-            label3.Text = "Your Email:";
+            label3.Text = "Ваша пошта";
             // 
             // button3
             // 
@@ -122,11 +124,11 @@
             button3.FlatStyle = FlatStyle.Popup;
             button3.Font = new Font("Lucida Bright", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button3.ForeColor = Color.FromArgb(27, 42, 55);
-            button3.Location = new Point(427, 79);
+            button3.Location = new Point(386, 79);
             button3.Name = "button3";
-            button3.Size = new Size(76, 42);
+            button3.Size = new Size(82, 42);
             button3.TabIndex = 2;
-            button3.Text = "Resend";
+            button3.Text = "Відправити повторно";
             button3.UseVisualStyleBackColor = false;
             button3.Click += button3_Click;
             // 
@@ -135,7 +137,7 @@
             textBox1.BackColor = Color.FromArgb(225, 213, 217);
             textBox1.BorderStyle = BorderStyle.FixedSingle;
             textBox1.Font = new Font("Lucida Bright", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(211, 79);
+            textBox1.Location = new Point(163, 79);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(121, 42);
             textBox1.TabIndex = 1;
@@ -146,17 +148,28 @@
             label2.AutoSize = true;
             label2.Font = new Font("Lucida Bright", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.FromArgb(28, 37, 44);
-            label2.Location = new Point(6, 9);
+            label2.Location = new Point(6, 16);
             label2.Name = "label2";
-            label2.Size = new Size(517, 36);
+            label2.Size = new Size(504, 36);
             label2.TabIndex = 0;
-            label2.Text = "A message with a notification code has been sent to your email.\n Please enter that code below.";
+            label2.Text = "Повідомлення з кодом було надіслано на вашу електронну пошту\r\nбудь ласка, введіть його нижче";
             label2.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Lucida Bright", 12.75F, FontStyle.Bold);
+            label4.Location = new Point(109, 89);
+            label4.Name = "label4";
+            label4.Size = new Size(45, 19);
+            label4.TabIndex = 4;
+            label4.Text = "Код:";
             // 
             // RegistrationCode
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(613, 291);
+            BackColor = Color.FromArgb(183, 167, 174);
+            ClientSize = new Size(613, 307);
             Controls.Add(groupBox1);
             FormBorderStyle = FormBorderStyle.Fixed3D;
             MaximizeBox = false;
@@ -181,5 +194,6 @@
         private Button button2;
         private Button button3;
         private Label label3;
+        private Label label4;
     }
 }

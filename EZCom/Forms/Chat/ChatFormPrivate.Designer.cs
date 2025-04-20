@@ -76,11 +76,11 @@
             // 
             // button1
             // 
-            button1.Location = new Point(379, 511);
+            button1.Location = new Point(359, 511);
             button1.Name = "button1";
-            button1.Size = new Size(61, 56);
+            button1.Size = new Size(81, 56);
             button1.TabIndex = 3;
-            button1.Text = "button1";
+            button1.Text = "Відправити";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 

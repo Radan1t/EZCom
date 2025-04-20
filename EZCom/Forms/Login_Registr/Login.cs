@@ -26,11 +26,13 @@ namespace EZCom
 
         public Login()
         {
-
             InitializeComponent();
+
             _loginService = Program.ServiceProvider.GetRequiredService<ILoginService>();
             _googleAuthService = Program.ServiceProvider.GetRequiredService<IGoogleAuthService>();
+
             DefaultUI.SetRoundedPictureBox(groupBox1, 15);
+
             groupBox1.Paint += (sender, e) =>
             {
                 e.Graphics.Clear(groupBox1.BackColor);
@@ -39,52 +41,53 @@ namespace EZCom
 
             checkBox1.CheckedChanged += (sender, e) =>
             {
-                if (checkBox1.Checked)
-                {
-                    textBox2.UseSystemPasswordChar = true;
-                }
-                else
-                {
-                    textBox2.UseSystemPasswordChar = false;
-                }
+                textBox2.UseSystemPasswordChar = checkBox1.Checked;
             };
         }
 
         private void EZCom_Click(object sender, EventArgs e)
         {
-
         }
 
-        private async void button1_Click(object sender, EventArgs e)
+        private async void LoginButton_Click(object sender, EventArgs e)
         {
-            string login = textBox1.Text;
-            string password = textBox2.Text;
+            button1.Enabled = false;
 
-            UserDTO user = await _loginService.LoginAsync(login, password);
-
-            if (user != null)
+            try
             {
-                MessageBox.Show($"Welcome, {user.First_name} {user.Last_name}!");
-                if (user.CompanyID == 0)
+                string login = textBox1.Text;
+                string password = textBox2.Text;
+
+                UserDTO user = await _loginService.LoginAsync(login, password);
+
+                if (user != null)
                 {
-                    MainNoComp mainForm = new MainNoComp(user,this);
+                    MessageBox.Show($"Welcome, {user.First_name} {user.Last_name}!");
+
+                    Form mainForm = user.CompanyID == 0
+                        ? new MainNoComp(user, this)
+                        : new MainForm(user, this);
+
                     mainForm.Show();
                     this.Hide();
                 }
                 else
                 {
-                    MainForm main= new MainForm(user, this);
-                    main.Show();
-                    this.Hide();
+                    MessageBox.Show("Invalid login or password.");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Invalid login or password.");
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            finally
+            {
+                await Task.Delay(10000); // Затримка 10 секунд
+                button1.Enabled = true;
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void RegistrationButton_Click(object sender, EventArgs e)
         {
             string idToken = null;
             Registration registrationForm = new Registration(this, idToken);
@@ -94,7 +97,10 @@ namespace EZCom
 
         private async void btnGoogleLogin_Click(object sender, EventArgs e)
         {
+            btnGoogleLogin.Enabled = false;
 
+            try
+            {
                 UserCredential credential = await _googleAuthService.GetGoogleUserCredentialAsync();
                 string idToken = await _googleAuthService.GetNewIdTokenAsync(credential);
 
@@ -106,33 +112,33 @@ namespace EZCom
 
                 UserDTO user = await _loginService.CheckUserExistsAsync(idToken);
 
-                
                 if (user != null)
                 {
-                user.Credential = JsonConvert.SerializeObject(credential.Token);
+                    user.Credential = JsonConvert.SerializeObject(credential.Token);
 
-                    if (user.CompanyID == null)
-                    {
-                        MainNoComp mainForm = new MainNoComp(user, this);
-                        mainForm.Show();
-                        this.Hide();
-                    }
-                    else
-                    {
-                        MainForm main = new MainForm(user, this);
-                        main.Show();
-                        this.Hide();
-                    }
+                    Form mainForm = user.CompanyID == null
+                        ? new MainNoComp(user, this)
+                        : new MainForm(user, this);
+
+                    mainForm.Show();
+                    this.Hide();
                 }
                 else
                 {
                     Registration registrationForm = new Registration(this, idToken);
                     registrationForm.Show();
+                    this.Hide();
                 }
-
-                this.Hide();
             }
-
+            catch (Exception ex)
+            {
+                MessageBox.Show("Google Login Error: " + ex.Message);
+            }
+            finally
+            {
+                await Task.Delay(10000); // Затримка 10 секунд
+                btnGoogleLogin.Enabled = true;
+            }
         }
- 
+    }
 }

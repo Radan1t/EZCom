@@ -39,11 +39,11 @@
             // 
             // button1
             // 
-            button1.Location = new Point(377, 516);
+            button1.Location = new Point(352, 516);
             button1.Name = "button1";
-            button1.Size = new Size(61, 56);
+            button1.Size = new Size(86, 56);
             button1.TabIndex = 7;
-            button1.Text = "button1";
+            button1.Text = "Відправити";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -78,11 +78,11 @@
             // 
             // button2
             // 
-            button2.Location = new Point(353, 14);
+            button2.Location = new Point(300, 14);
             button2.Name = "button2";
-            button2.Size = new Size(75, 23);
+            button2.Size = new Size(128, 23);
             button2.TabIndex = 1;
-            button2.Text = "button2";
+            button2.Text = "Додати користувача";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 

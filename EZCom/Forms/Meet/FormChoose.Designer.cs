@@ -36,15 +36,16 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            label1.Location = new Point(47, 29);
+            label1.Font = new Font("Yu Gothic UI", 18F);
+            label1.Location = new Point(47, 49);
             label1.Name = "label1";
-            label1.Size = new Size(211, 30);
+            label1.Size = new Size(237, 32);
             label1.TabIndex = 0;
             label1.Text = "Оберіть тип зустрічі";
             // 
             // unit
             // 
+            unit.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             unit.Location = new Point(47, 115);
             unit.Name = "unit";
             unit.Size = new Size(88, 36);
@@ -55,6 +56,7 @@
             // 
             // custom
             // 
+            custom.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             custom.Location = new Point(171, 115);
             custom.Name = "custom";
             custom.Size = new Size(87, 36);

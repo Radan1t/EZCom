@@ -43,6 +43,7 @@
             groupBox4 = new GroupBox();
             webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
             groupBox7 = new GroupBox();
+            pictureBox1 = new PictureBox();
             button5 = new Button();
             button4 = new Button();
             button3 = new Button();
@@ -54,6 +55,7 @@
             groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)webView21).BeginInit();
             groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
@@ -73,13 +75,14 @@
             // 
             button1.BackColor = Color.FromArgb(183, 167, 174);
             button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             button1.Location = new Point(59, 571);
             button1.Name = "button1";
             button1.Size = new Size(121, 39);
             button1.TabIndex = 3;
-            button1.Text = "New";
+            button1.Text = "Новичй чат";
             button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            button1.Click += CreateChat_Click;
             // 
             // label1
             // 
@@ -87,9 +90,9 @@
             label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 204);
             label1.Location = new Point(84, 0);
             label1.Name = "label1";
-            label1.Size = new Size(60, 25);
+            label1.Size = new Size(57, 25);
             label1.TabIndex = 2;
-            label1.Text = "Chats";
+            label1.Text = "Чати";
             // 
             // groupBox6
             // 
@@ -147,9 +150,9 @@
             label2.ForeColor = SystemColors.Control;
             label2.Location = new Point(53, 0);
             label2.Name = "label2";
-            label2.Size = new Size(120, 25);
+            label2.Size = new Size(117, 25);
             label2.TabIndex = 3;
-            label2.Text = "Department";
+            label2.Text = "Підрозділи";
             // 
             // groupBox3
             // 
@@ -166,11 +169,11 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            label4.Location = new Point(211, -1);
+            label4.Location = new Point(129, 4);
             label4.Name = "label4";
-            label4.Size = new Size(65, 25);
+            label4.Size = new Size(203, 25);
             label4.TabIndex = 4;
-            label4.Text = "Meets";
+            label4.Text = "Заплановані зустрічі";
             // 
             // flowLayoutPanel3
             // 
@@ -202,7 +205,7 @@
             // 
             // groupBox7
             // 
-            groupBox7.BackColor = Color.FromArgb(88, 84, 91);
+            groupBox7.Controls.Add(pictureBox1);
             groupBox7.Controls.Add(button5);
             groupBox7.Controls.Add(button4);
             groupBox7.Controls.Add(button3);
@@ -213,42 +216,55 @@
             groupBox7.TabIndex = 4;
             groupBox7.TabStop = false;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.EZCom_logo_variant_removebg_preview;
+            pictureBox1.Location = new Point(25, -20);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(135, 86);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 4;
+            pictureBox1.TabStop = false;
+            // 
             // button5
             // 
-            button5.Location = new Point(421, -1);
+            button5.Location = new Point(510, 6);
             button5.Name = "button5";
             button5.Size = new Size(70, 29);
             button5.TabIndex = 3;
-            button5.Text = "Meet";
+            button5.Text = "Зустріч";
             button5.UseVisualStyleBackColor = true;
-            button5.Click += button5_Click;
+            button5.Visible = false;
+            button5.Click += MeetingButton_Click;
             // 
             // button4
             // 
-            button4.Location = new Point(506, 0);
+            button4.Location = new Point(425, 6);
             button4.Name = "button4";
             button4.Size = new Size(70, 29);
             button4.TabIndex = 2;
-            button4.Text = "Admin";
+            button4.Text = "Адмін";
             button4.UseVisualStyleBackColor = true;
-            button4.Click += button4_Click;
+            button4.Visible = false;
+            button4.Click += AdminButton_Click;
             // 
             // button3
             // 
-            button3.Location = new Point(595, 0);
+            button3.Location = new Point(595, 6);
             button3.Name = "button3";
             button3.Size = new Size(70, 29);
             button3.TabIndex = 1;
-            button3.Text = "Profile";
+            button3.Text = "Профіль";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // button2
             // 
-            button2.Location = new Point(680, 0);
+            button2.Location = new Point(680, 6);
             button2.Name = "button2";
             button2.Size = new Size(70, 29);
             button2.TabIndex = 0;
-            button2.Text = "Log Out";
+            button2.Text = "Вийти";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
@@ -276,6 +292,7 @@
             groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)webView21).EndInit();
             groupBox7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -300,5 +317,6 @@
         private FlowLayoutPanel flowLayoutPanel2;
         private FlowLayoutPanel flowLayoutPanel3;
         private Label label4;
+        private PictureBox pictureBox1;
     }
 }
